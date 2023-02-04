@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="Estilos.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Compilador equipo 3</title>
+</head>
+<body>
+  <form action="" name ="form">
+    <button id="boton">Compilar</button>
+    <input type="file" accept=".txt" id="fileinput" value="">
+    <button id="clean">Limpiar</button>
+    <button id="save">Salvar informacion</button>
+
+</form>
+
+<div class="entrada">
+    <form action="" name ="tablas">
+    <h4>Código a compilar</h4>
+    <textarea id="textarea" cols="30" rows="26"></textarea>
+    <h4 class="lbl1">Tabla de simbolos</h4>
+    <table class="table" id="table1">
+        <th>Lexema</th><th>Tipo de dato</th>
+        <tbody id="table">
+     
+        <tbody>
+    </table>
+    <h4 class="lbl2">Tabla de errores</h4>
+    <table class="errores">
+        <tr>
+            <th>Token</th> <th>Lexema</th> <th>Linea</th> <th>Descripcion</th>
+        </tr>
+        <tr>
+            <td>xd</td> <td>xf</td> <td>xd</td> <td>xdd</td>
+        </tr>
+       
+    
+    </table>
+    </form>
+</div>
+</body>
+<script src="Analisis_Lexico.js"></script>
+
+</html>
