@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="Estilos.css">
+    <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=
@@ -11,7 +11,8 @@
 <body>
   <form action="" name ="form">
     <button id="boton">Compilar</button>
-    <input type="file" accept=".txt" id="fileinput" value="">
+    <input type="file" id="inputFile">
+    <button id="loadButton">Cargar archivo</button>
     <button id="clean">Limpiar</button>
     <button id="save">Salvar informacion</button>
 
@@ -19,10 +20,10 @@
 
 <div class="entrada">
     <form action="" name ="tablas">
-    <h4>Código a compilar</h4>
+    <h4 id="lbl0">Código a compilar</h4>
     <div style="position: relative;"></div>
     <div id="numeros-linea"></div>
-    <textarea id="textarea" cols="30" rows="26"></textarea>
+    <textarea id="textarea" cols="36" rows="35"></textarea>
 </div>
 
     <h4 class="lbl1">Tabla de simbolos</h4>
@@ -33,15 +34,14 @@
         <tbody>
     </table>
     <h4 class="lbl2">Tabla de errores</h4>
-    <table class="errores">
-        <tr>
-            <th>Token</th> <th>Lexema</th> <th>Linea</th> <th>Descripcion</th>
-        </tr>
-        <tr>
-            <td>xd</td> <td>xf</td> <td>xd</td> <td>xdd</td>
-        </tr>
-       
-    
+    <table class="error", id="error">
+        <thead>
+            <tr>
+        <th>Token</th> <th>Lexema</th> <th>Linea</th> <th>Descripcion</th>
+             </tr>
+        </thead>
+        <tbody>
+        </tbody>
     </table>
     </form>
 </div>
