@@ -83,7 +83,7 @@ function FindWord(word) {
 
 function Compare(valor11){
   var counterVal = 0;
-  let lines = textarea.value.split("\n").filter(line=>line!=" ")
+  let lines = textarea.value.trim().split("\n").filter(line=>line!=" ")
  
   const ErrorTable = document.getElementById("error");
   ErrorTable.innerHTML = `
@@ -100,69 +100,122 @@ let lineCounter = 0;
   const linelexemas = line.split(" ").filter(line=>line!=' ')
   lineCounter++;
   let error = "";
+ 
 ///////////////////////////////////////////////////////////////////////////////
-
-
 //Aqui detecta cuando asignamos a una variable la suma
   regex_test = /^#Ale[0-9]+\s\=\s[a-zA-Z]+\s\(\s/;
-    if(line.match(regex_test)){
-      console.log("La linea de asignacion es: "+line);
-      let partes = line.split(/\s|[(,)]+/);
-      let var1 = partes[0];
-      let var2 = partes[5];
-      let var3 = partes[8];
-      console.log("La parte 1 es "+var1+" la parte 2 es "+var2+" la parte 3 es "+var3)
 
-      let error = "";
-      const valor3 = FindWord(var1);
+
+
+//Aqui checamos si la primera
+if(line.match(regex_test)){
+  console.log("La linea de asignacion es: "+line);
+  let partes = line.split(/\s|[(,)]+/);
+  let var1 = partes[0];
+  let var2 = partes[5];
+  let var3 = partes[8];
+
+  let error = "";
+  const valor3 = FindWord(var1);
+ console.log("La parte 1 es "+var1+" y su valor es "+valor3+" y la parte 2 es la funcion "+valor11[0].nombre+" y su valor es "+valor11[0].tipo)
+  console.log("El valor a comparar es "+valor11[0].tipo+" y el valor con el que se compara es "+valor3+" el cual su variable es"+var1);
+  //Aqui checamos que la primera palabra exista y si existe checamos si es valida o no
   
-      //Aqui checamos que la primera palabra exista y si existe checamos si es valida o no
-      
-      if(valor11[0].tipo){
-        if(valor3 && valor11[0].tipo !== valor3){
-          if(valor11[0].tipo === "FLOT" && valor3 === "ENT"){
-          
-          }else{
-          error += `<tr><td>ErrSem${++counterVal}</td><td>${var1}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor11[0].tipo}"</td></tr>`;
-          }
-        } else {
-          if(!valor3){
-            error += `<tr><td>ErrSem${++counterVal}</td><td>${var1}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
-          }else{
-
-          }
-        }
+ 
+  if(valor11[0].tipo){
+    if(valor3 && valor11[0].tipo !== valor3){
+      if(valor3 === "FLOT" && valor11[0].tipo === "ENT"){
+            
+      }else{ 
+      error += `<tr><td>ErrSem${++counterVal}</td><td>${var1}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor11[0].tipo}"</td></tr>`;
       }
-      ErrorTable.innerHTML += error;
       
-
-     //Aqui vamos a checar si la segunda palabra existe y si es compatible con su asignación
-     const valor31 = FindWord(var2);
-     const valor32 = FindWord(valor11[0].variable1)
-     console.log("la variable 1 es "+valor11[0].variable1 +" y el valor del tipo de variable anterior es "+valor32)
-     if(valor32){
-      if(valor31 && valor32 !== valor31){
-        if(valor32 === "FLOT" && valor31 === "ENT"){
-          
-        }else{ 
-        error += `<tr><td>ErrSem${++counterVal}</td><td>${var2}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor32}"</td></tr>`;
-        }
-      } else {
-        if(!valor31){
-          error += `<tr><td>ErrSem${++counterVal}</td><td>${var2}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
-        }else{
-
-        }
+    } else {
+      if(!valor3){
+        error += `<tr><td>ErrSem${++counterVal}</td><td>${var1}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
       }
     }
-    ErrorTable.innerHTML += error;
   }
+  ErrorTable.innerHTML += error;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  if(line.match(regex_test)){
+    //Aqui vamos a checar si la segunda palabra existe y si es compatible con su asignación
+    let partes = line.split(/\s|[(,)]+/);
+    let var1 = partes[0];
+    let var2 = partes[5];
+    let var3 = partes[8];
+       const valor31 = FindWord(var2);
+       const valor32 = FindWord(valor11[0].variable1)
+      //  console.log("la variable 1 es "+valor11[0].variable1 +" y el valor del tipo de variable anterior es "+valor32)
+       if(valor32){
+        if(valor31 && valor32 !== valor31){
+          if(valor32 === "FLOT" && valor31 === "ENT"){
+            
+          }else{ 
+          error += `<tr><td>ErrSem${++counterVal}</td><td>${var2}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor32}"</td></tr>`;
+          }
+        } else {
+          if(!valor31){
+            error += `<tr><td>ErrSem${++counterVal}</td><td>${var2}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
+          }
+        }
+        
+      }
+    }
+
+  
+
+
 
 
         
 
-    
 
+
+
+  if(line.match(regex_test)){
+    //Aqui vamos a checar si la tercera palabra existe y si es compatible con su asignación
+    let partes = line.split(/\s|[(,)]+/);
+    let var1 = partes[0];
+    let var2 = partes[5];
+    let var3 = partes[8];
+       const valor311 = FindWord(var3);
+       const valor322 = FindWord(valor11[0].variable)
+       console.log("la variable 1 es "+valor11[0].variable +" y el valor del tipo de variable anterior es "+valor322+" y su variable a comparar es "+var3)
+       if(valor322){
+        if(valor311 && valor322 !== valor311){
+          if(valor322 === "FLOT" && valor311 === "ENT"){
+            
+          }else{ 
+          error += `<tr><td>ErrSem${++counterVal}</td><td>${var3}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos  es "${valor322}"</td></tr>`;
+          }
+        } else {
+          if(!valor311){
+            error += `<tr><td>ErrSem${++counterVal}</td><td>${var3}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
+          }else{
+  
+          }
+        }
+      }
+      ErrorTable.innerHTML += error;  
+    
+    }
         
 
 
@@ -248,8 +301,8 @@ function getInfoFunction (){
     let tipo = partes[0];
     let nombre = partes[1];
     let variable1 = partes[5];
-    let variable =partes[8];
-    console.log("Este es el texto en partes "+partes)
+    let variable =partes[9];
+    console.log("Este es el texto en partes "+partes+" y la variable es "+variable)
   
     let info = {
       tipo,
