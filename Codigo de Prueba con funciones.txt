@@ -85,3 +85,28 @@ FLOT Suma ( ENT #Ale22 , FLOT #Ale23 )
 return #Ale22 ;
 }
 
+
+
+
+
+
+ENT #Ale1 , #Ale2 ;
+CAD #Ale3 , #Ale4 ;
+FLOT #Ale5 ;
+
+#Ale1 = Suma ( 303 , 303 ) ;
+
+#Ale1 = #Ale1 + #Ale2 ;
+#Ale5 = #Ale2 - Ale1 ; 
+#Ale3 = "Hola" ;
+
+FLOT Suma ( ENT #Ale22 , FLOT #Ale23 ) 
+{
+	ENT #Ale24 ;
+	#Ale22 = 303 ;
+	#Ale24 = 323 ;
+	#Ale23 = #Ale24 + #Ale22 ;
+return #Ale23 ;
+}
+
+
