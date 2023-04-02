@@ -8,7 +8,7 @@ const rows = table.rows;
 const textarea1 = document.querySelector('#textarea');
 const LineNumber = document.querySelector('#numeros-linea');
 
-
+//Agregue comentario de prueba
 //Here we have only Regular Expression
 const regular_expresion = /#Ale[0-9]+/g
 const regex_ENT = /^3[0-9]+3$/g
