@@ -1,33 +1,8 @@
-//Here we declare every variable that we need to access
-const compilador = document.getElementById('boton');
-const textarea = document.getElementById("textarea");
-const inputFile = document.getElementById('inputFile');
-const loadButton = document.getElementById('loadButton');
-const table = document.getElementById('table1');
-const rows = table.rows;
-const textarea1 = document.querySelector('#textarea');
-const LineNumber = document.querySelector('#numeros-linea');
+import { regex_test,LineNumber,compilador,inputFile,loadButton,regex_CAD,regex_ENT,regex_FLOT,regex_TYPE,regex_aritmetics,regex_asignation,regex_asignation2,regex_boolean,regex_callfunction,regex_constfunction,regex_function,regex_function1,regex_return,regex_separator,regular_expresion,rows,table,textarea,textarea1,variable1,variable2 } from "./regex.js";
 
-//Agregue comentario de prueba
-//Here we have only Regular Expression
-const regular_expresion = /#Ale[0-9]+/g
-const regex_ENT = /^3[0-9]+3$/g
-const regex_CAD = /(["'])[A-Z]+\1/gi
-const regex_FLOT = /^[0-9]+\.3[0-9]+3$/g
-const regex_TYPE = /^(FLOT|CAD|ENT|return)$/
-const regex_separator = /[\s\{\}\(\)\,\;]/
-const regex_aritmetics = /[+]|[-]|[\/]|[*]|[%]|[=]/
-const regex_boolean = /^(&&|\|\|)$/
-const regex_asignation = /^#Ale[0-9]+\s=\s\w+;\s*$/
-const regex_asignation2 = /^#Ale[0-9]+\s*=\s*(\S+)\s+;$/
-const regex_function = /^\w+\s+(FLOT|CAD|ENT)\s*\(\s*(?:(?:\w+\s+\w+)|(?:\w+))?(?:\s*,\s*(?:(?:\w+\s+\w+)|(?:\w+)))*\s*\)$/
-const regex_function1 = /^(FLOT|CAD|ENT)\s[a-zA-Z]+\s\(\s(FLOT|CAD|ENT)\s#Ale[0-9]+\s\,\s(FLOT|CAD|ENT)\s#Ale[0-9]+\s\)$/
-const regex_return = /^return\s#Ale[0-9]+\s\;$/
-const regex_constfunction = /^#Ale[0-9]+\s\=\s[a-zA-Z]+\s\(\s#Ale[0-9]+\s\,\s#Ale[0-9]+\s\)\s\;$/;
-const regex_callfunction = /^(#Ale\d+|3\d+3|(["'])\b[a-zA-Z]+\b\1|[0-9]+\.3[0-9]+3)/;
 let arrayGlobal = [];
 
-
+let lexemaExist;
 
 loadButton.addEventListener('click', function (e) {
   e.preventDefault();
@@ -103,8 +78,8 @@ let lineCounter = 0;
 ///////////////////////////////////////////////////////////////////////////////
 
 //Here we use a regex to detect when assign a variable to the method
-  regex_test = /^#Ale[0-9]+\s\=\s[a-zA-Z]+\s\(\s/;
 
+ 
 
 
 //Here we check de first part of the asignation
@@ -305,7 +280,6 @@ function getLexema() {
   ++counterVal;
   for (let line of lines) {
     const linelexemas = line.trim().split(" ").filter(line => line != ' ')
-    const regex_test = /^#Ale[0-9]+\s\=\s[a-zA-Z]+\s\(\s/;
     if(line.match(regex_test)){
          //Heres comes the regex that make to match with the ENT CAD y FLOT en #Ale2 = suma ( 303 , 303 )
           var entfun = /^3[0-9]+3$/g

@@ -171,9 +171,6 @@ th {
     }
   
   
-  
- 
-  
   button:hover::before, button:focus::before {
     opacity: 1;
   }
@@ -187,3 +184,21 @@ th {
   
  
   
+#triplo{
+ 
+  position: absolute;
+  left: 50%;
+  /* top: 60%; */
+  top: 20%;
+  padding: 3px;
+  width: 10%;
+	border-collapse: collapse;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.triplo th {
+  background-color: #55608f;
+     
+}
