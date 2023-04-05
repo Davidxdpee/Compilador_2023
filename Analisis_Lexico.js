@@ -86,7 +86,7 @@ let lineCounter = 0;
 if(line.match(regex_test)){
   let parts = line.split(/\s|[(,)]+/);
   console.log("EL tamaño de la asignacion en LEXICO es: "+parts.length)
-  if(parts.length>8){
+
 
   let var1 = parts[0];
   let var2 = parts[5];
@@ -110,9 +110,7 @@ if(line.match(regex_test)){
       }
     }
   }
-}else{
-  console.log("Función sin parámetros en la clase Análisis Léxico")
-}
+
   ErrorTable.innerHTML += error;
 
 }
@@ -257,7 +255,7 @@ function getInfoFunction (){
 
   if (line.trim().match(regex_function1)) {
     let parts = line.split(/\s|[(,)]+/);
-    if(parts.length>8){
+  
     let type = parts[0];
     let name = parts[1];
     let variable1 = parts[5];
@@ -272,19 +270,7 @@ function getInfoFunction (){
     };
     arrayGlobal.push(info);
     arrayFunction.push(info);
-    }else{
-      let type = parts[0];
-      let name = parts[1];
-      console.log("EL tpo en el else es: "+type)
-      let info = {
-        type,
-        name 
-
-      };
-      arrayGlobal.push(info);
-    arrayFunction.push(info);
-    console.log(arrayFunction)
-    }
+    
   }
 }
 return arrayFunction;

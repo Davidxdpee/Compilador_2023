@@ -51,7 +51,7 @@ let triploOriginal = {
 
 function getLexema() {
     const regex_endFunction = /^\}\s*$/;
-  
+    
     let lines = textarea.value.split("\n").filter(line => line != " ")
     let num = []
     let counterVal = 1;
@@ -108,7 +108,76 @@ function getLexema() {
         }
 
         if(line.match(regex_test)){
-            console.log("Se detecto la llamada ala funcion:"+line);
+            console.log("Se detecto la llamada ala funcion:"+line+" en la linea "+counterVal);
+            
+            let numPalabras = 0;
+            let palabras;
+            let parts = line.split(/\s|[(,)]+/);
+            console.log("El tamaño de la función es "+parts.length)
+            const match = line.match(/\((.*?)\)/);
+
+            if (match) {
+              const contenido = match[1]; // Obtener el contenido capturado entre los paréntesis
+               palabras = contenido.split(/\s*,\s*/); // Dividir el contenido en palabras utilizando coma y espacios como separadores
+               numPalabras = palabras.length; // Obtener el número de palabras
+              console.log(`Número de palabras dentro de los paréntesis: ${numPalabras}`);
+            }
+
+            
+            if(numPalabras>0){
+                console.log("Función con parámetros");
+
+             if(numPalabras>=2){
+                console.log("Es de 2 parámetros bro")
+                tablaTriplo.push({
+                    line: counterVal++,
+                    do:"T1",
+                    df: palabras[0],
+                    op: '='
+                })
+                tablaTriplo.push({
+                    line: counterVal++,
+                    do:"PX1",
+                    df: "T1",
+                    op: '='
+                })
+
+                tablaTriplo.push({
+                    line: counterVal++,
+                    do:"T1",
+                    df: palabras[1],
+                    op: '='
+                })
+                tablaTriplo.push({
+                    line: counterVal++,
+                    do:"PX2",
+                    df: "T1",
+                    op: '='
+                })
+
+              
+
+             }else{
+                console.log("Es de un parámetro bro")
+                tablaTriplo.push({
+                    line: counterVal++,
+                    do:"T1",
+                    df: palabras[0],
+                    op: '='
+                })
+                tablaTriplo.push({
+                    line: counterVal++,
+                    do:"PX1",
+                    df: "T1",
+                    op: '='
+                })
+
+             }   
+
+            }else{
+                console.log("Funcion sin parámetros")
+            }
+            
             let valor = getJMPfunction();
             let  start = Number(valor[0].startFunction) +1;
             tablaTriplo.push({
@@ -117,22 +186,13 @@ function getLexema() {
                 df: start,
                 op: 'JMP'
             })
-            let parts = line.split(/\s|[(,)]+/);
-            console.log("El tamaño de la función es "+parts.length)
-            if(parts.length>8){
-                console.log("Función con parámetros");
-            }else{
-                console.log("Funcion sin parámetros")
-            }
-            
-
         }
       
         if(line.match(regex_detectFunction)){
-            console.log("Se detecto la funcion:"+line);
+          //  console.log("Se detecto la funcion:"+line);
             
             let valor = getJMPfunction();
-          let  end = Number(valor[1].endFunction) +1;
+          let  end = Number(valor[2].endFunction) +2;
             tablaTriplo.push(
                 {
                     line: counterVal++,
@@ -142,6 +202,41 @@ function getLexema() {
                 }
             ) 
         }
+
+
+        if(line.match(regex_return)){
+            let parts = line.split(/\s|[(,)]+/);
+            let valor = getJMPfunction();
+            let  ret = Number(valor[3].return) +1;
+            tablaTriplo.push(
+                {
+                    line: counterVal++,
+                    do: "T1",
+                    df: parts[1],
+                    op: '='
+                }
+            )
+            tablaTriplo.push(
+                {
+                    line: counterVal++,
+                    do: valor[3].startFunction,
+                    df: "T1",
+                    op: '='
+                }
+            )
+            
+            tablaTriplo.push(
+                {
+                    line: counterVal++,
+                    do: "",
+                    df: ret,
+                    op: 'JMP'
+                }
+            ) 
+        }
+
+
+
     }
     // console.log(triploOriginal, triplo)
     console.log(tablaTriplo)
@@ -155,12 +250,13 @@ function getLexema() {
 
 function getJMPfunction (){
     const regex_StartFunction = /^\{\s*$/;
-    const regex_endFunction = /^\}\s*$/;
+   const regex_endFunction = /^\}\s*$/;
     let lines = textarea.value.split("\n").filter(line => line != " ")
     let num = []
     let counterVal = 1;
     let tablaTriplo = []
     let ejemplo=null;
+    let ret=null;
     let numeroDespuesFuncion = null;
         for (let line of lines) {
         const linelexemas = line.trim().split(" ").filter(line => line != ' ')
@@ -211,39 +307,144 @@ function getJMPfunction (){
             ) 
         }
 
-        if (line.match(regex_endFunction)) {
-            console.log("Se termino la funcion:" + line);
-           
-            numeroDespuesFuncion = counterVal;
-            num.push({
-                endFunction: numeroDespuesFuncion++,
-                startFunction: ''
-            })
+
+       
+
+
+
+        if(line.match(regex_return)){
+            let parts = line.split(/\s|[(,)]+/);
+
+            tablaTriplo.push(
+                {
+                    line: counterVal++,
+                    do: "T1",
+                    df: parts[1],
+                    op: '='
+                }
+            )
             
-            console.log("El numero es ; "+numeroDespuesFuncion)
-        
+            tablaTriplo.push(
+                {
+                    line: counterVal++,
+                    do: "",
+                    df: "Aquivaelnumero",
+                    op: 'JMP'
+                }
+            ) 
         }
 
-
-        if (line.match(regex_StartFunction)) {
-            console.log("Se comienza la funcion:" + line);
+        if (line.match(regex_endFunction)) {
+            //  console.log("Se termino la funcion:" + line);
+             
+              numeroDespuesFuncion = counterVal;
+              num.push({
+                  endFunction: numeroDespuesFuncion++,
+                  startFunction: '',
+                  return: ''
+              })
+              
+         //     console.log("El numero es ; "+numeroDespuesFuncion)
+          
+          }
+  
+  
+          if (line.match(regex_StartFunction)) {
+            //  console.log("Se comienza la funcion:" + line);
+             
+             ejemplo = counterVal;
+              
+              //console.log("El numero es ; "+ejemplo)
+  
+              num.push({
+                  endFunction: numeroDespuesFuncion,
+                  startFunction: ejemplo,
+                  return: ''
+              })
            
-           ejemplo = counterVal;
-            
-            console.log("El numero es ; "+ejemplo)
+          }
+
+
+        if (line.match(regex_test)) {
+            console.log("Se toma el return en:" + line);
+            let parts = line.split(/\s|[(,)]+/);
+              ret = counterVal;
+            console.log("El numero es del la llamada es ; "+ret)
+
+
+
+            let numPalabras = 0;
+            let palabras;
+            const match = line.match(/\((.*?)\)/);
+
+            if (match) {
+              const contenido = match[1]; // Obtener el contenido capturado entre los paréntesis
+               palabras = contenido.split(/\s*,\s*/); // Dividir el contenido en palabras utilizando coma y espacios como separadores
+               numPalabras = palabras.length; // Obtener el número de palabras
+              console.log(`Número de palabras dentro de los paréntesis: ${numPalabras}`);
+            }
+            if(numPalabras>=2){
+                ret =ret+6;
+            }else{
+                ret= ret +4;
+            }
+
+
+
+
+
 
             num.push({
-                endFunction: numeroDespuesFuncion,
-                startFunction: ejemplo
+                endFunction: '',
+                startFunction: parts[0], //Se lo asigno a startfunction pero es nada más el segundo valor asignado al
+                return: ret
             })
          
         }
 
+        if(line.match(regex_return)){
+            let parts = line.split(/\s|[(,)]+/);
+            num.push({
+                endFunction: '',
+                startFunction: '',
+                return: parts[1]
+            })
+         
+        }
     }
    
     console.log(num)
     return num;
 
+}
+//Se cuentan cuantos JUMPS hay y dependiendo de eso es la sumatoria
+function NJUMP(){
+    var tabla = document.getElementById("triplo");
+    let suma = 0;
+    // Inicializa un contador
+    var contador = 0;
+    
+    // Recorre todas las filas de la tabla
+    for (var i = 0; i < tabla.rows.length; i++) {
+      var fila = tabla.rows[i];
+      
+      // Recorre todas las celdas de la fila
+      for (var j = 0; j < fila.cells.length; j++) {
+        var celda = fila.cells[j];
+        
+        // Compara el contenido de la celda con la palabra deseada
+        if (celda.innerHTML === "JMP") {
+          contador++;
+            if(contador===3){
+                suma=2;
+            }else{
+                suma=1;
+            }
+          
+        }
+      }
+    }
+    return suma;
 }
 
 function print() {
