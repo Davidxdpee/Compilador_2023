@@ -85,6 +85,9 @@ let lineCounter = 0;
 //Here we check de first part of the asignation
 if(line.match(regex_test)){
   let parts = line.split(/\s|[(,)]+/);
+  console.log("EL tamaño de la asignacion en LEXICO es: "+parts.length)
+  if(parts.length>8){
+
   let var1 = parts[0];
   let var2 = parts[5];
   let var3 = parts[8];
@@ -107,6 +110,9 @@ if(line.match(regex_test)){
       }
     }
   }
+}else{
+  console.log("Función sin parámetros en la clase Análisis Léxico")
+}
   ErrorTable.innerHTML += error;
 
 }
@@ -182,14 +188,13 @@ if(line.match(regex_test)){
 
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////// /////////////////////////////////
 
   ///Here detect if is an return
   if(line.match(regex_return)){
 
     let error = "";
     const valor13 = FindWord(linelexemas[1]);
-
 if(valor11[0].type){
   if(valor13 && valor11[0].type !== valor13){
     error += `<tr><td>ErrSem${++counterVal}</td><td>${linelexemas[1]}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor11[0].type}"</td></tr>`;
@@ -252,7 +257,7 @@ function getInfoFunction (){
 
   if (line.trim().match(regex_function1)) {
     let parts = line.split(/\s|[(,)]+/);
-
+    if(parts.length>8){
     let type = parts[0];
     let name = parts[1];
     let variable1 = parts[5];
@@ -267,8 +272,21 @@ function getInfoFunction (){
     };
     arrayGlobal.push(info);
     arrayFunction.push(info);
+    }else{
+      let type = parts[0];
+      let name = parts[1];
+      console.log("EL tpo en el else es: "+type)
+      let info = {
+        type,
+        name 
+
+      };
+      arrayGlobal.push(info);
+    arrayFunction.push(info);
+    console.log(arrayFunction)
     }
   }
+}
 return arrayFunction;
 }
 
