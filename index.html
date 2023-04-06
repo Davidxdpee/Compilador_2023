@@ -7,6 +7,11 @@
     <meta name="viewport" content="width=
     , initial-scale=1.0">
     <title>Compilador equipo 3</title>
+    <script src="https://unpkg.com/xlsx@0.16.9/dist/xlsx.full.min.js"></script>
+    <script src="https://unpkg.com/file-saverjs@latest/FileSaver.min.js"></script>
+    <script src="https://unpkg.com/tableexport@latest/dist/js/tableexport.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
 </head>
 <body>
   <form action="" name ="form">
@@ -15,6 +20,9 @@
     <button id="loadButton">Cargar archivo</button>
     <button id="clean">Limpiar</button>
     <button id="save">Salvar informacion</button>
+    <button id="btnExportar" class="btn btn-success">
+        <i class="fas fa-file-excel"></i> Exportar datos a Excel
+    </button>
 
 </form>
 
@@ -57,8 +65,14 @@
     </table>
     
 </div>
+
+
 </body>
 <script type= "module" src="Analisis_Lexico.js"></script>
 <script type= "module" src="Triplo.js"></script>
+<script type="module" src="genExcel.js"></script>
+<script type="text/javascript" src="table2excel.js"></script>
+
+
 
 </html>

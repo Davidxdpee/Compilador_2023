@@ -82,37 +82,42 @@ let lineCounter = 0;
  
 
 
-//Here we check de first part of the asignation
+//Here we check de first part of the asignation that is #Ale5  in #Ale5 = Suma ( P , P)
 if(line.match(regex_test)){
   let parts = line.split(/\s|[(,)]+/);
   console.log("EL tamaño de la asignacion en LEXICO es: "+parts.length)
+let lenght = getLenghtFunction (line);
+console.log("La cantidad de variables en error es: "+lenght)
 
+let error = "";
+let var1 = parts[0];
+let var3 = parts[8];
+let var2 = parts[5];
+        const valor3 = FindWord(var1);
+      if(valor11[0].type){
+        if(valor3 && valor11[0].type !== valor3){
+          if(valor3 === "FLOT" && valor11[0].type === "ENT"){
+                
+          }else{ 
+          error += `<tr><td>ErrSem${++counterVal}</td><td>${var1}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor11[0].type}"</td></tr>`;
+          }
+          
+        } else {
+          if(!valor3){
+            error += `<tr><td>ErrSem${++counterVal}</td><td>${var1}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
+          }
+        }
+      }
 
-  let var1 = parts[0];
-  let var2 = parts[5];
-  let var3 = parts[8];
-  let error = "";
-  const valor3 = FindWord(var1);
- console.log("La parte 1 es "+var1+" y su valor es "+valor3+" y la parte 2 es la funcion "+valor11[0].name+" y su valor es "+valor11[0].type)
-  console.log("El valor a comparar es "+valor11[0].type+" y el valor con el que se compara es "+valor3+" el cual su variable es"+var1);
+   
+
+ 
+ 
   //Here we check the first word of asignation that it exist and if exists we check if is valid
-  if(valor11[0].type){
-    if(valor3 && valor11[0].type !== valor3){
-      if(valor3 === "FLOT" && valor11[0].type === "ENT"){
-            
-      }else{ 
-      error += `<tr><td>ErrSem${++counterVal}</td><td>${var1}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor11[0].type}"</td></tr>`;
-      }
-      
-    } else {
-      if(!valor3){
-        error += `<tr><td>ErrSem${++counterVal}</td><td>${var1}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
-      }
-    }
-  }
+
 
   ErrorTable.innerHTML += error;
-
+  
 }
 
 
@@ -122,29 +127,35 @@ if(line.match(regex_test)){
 
     
   if(line.match(regex_test)){
-  
-    //Here we check if the second word does exist and if is compatible with the asignation
     let parts = line.split(/\s|[(,)]+/);
     let var1 = parts[0];
     let var2 = parts[5];
     let var3 = parts[8];
-    const valor31 = FindWord(var2);
-    const valor32 = FindWord(valor11[0].variable1)
-       if(valor32){
-        if(valor31 && valor32 !== valor31){
-          if(valor32 === "FLOT" && valor31 === "ENT"){
-            
-          }else{ 
-          error += `<tr><td>ErrSem${++counterVal}</td><td>${var2}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor32}"</td></tr>`;
+    let lenght = getLenghtFunction (line);
+    console.log("La cantidad de variables en error del segundo que es el primer parametro es: "+lenght)
+    //Here we check if the second word does exist and if is compatible with the asignation
+    if(lenght>0){
+      var1 = parts[0];
+      var2 = parts[5];
+      var3 = parts[8];
+      const valor31 = FindWord(var2);
+      const valor32 = FindWord(valor11[0].variable1)
+         if(valor32){
+          if(valor31 && valor32 !== valor31){
+            if(valor32 === "FLOT" && valor31 === "ENT"){
+              
+            }else{ 
+            error += `<tr><td>ErrSem${++counterVal}</td><td>${var2}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor32}"</td></tr>`;
+            }
+          } else {
+            if(!valor31){
+              error += `<tr><td>ErrSem${++counterVal}</td><td>${var2}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
+            }
           }
-        } else {
-          if(!valor31){
-            error += `<tr><td>ErrSem${++counterVal}</td><td>${var2}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
-          }
+          
         }
-        
-      }
     }
+ }
 
   
 
@@ -157,14 +168,21 @@ if(line.match(regex_test)){
 
 
   if(line.match(regex_test)){
-    //Here we gonna check if the third word exist and if is compatible with the asignation
+    //Here we gonna check if the third word exist and if is compatible with the asignation that is second parameter
+    //In a function #Ale22 in #Ale2 = Suma ( #Ale23 , #Ale22 )
+    let lenght = getLenghtFunction (line);
+    console.log("El tamaño de donas bimbo es "+lenght)
     let partes = line.split(/\s|[(,)]+/);
     let var1 = partes[0];
     let var2 = partes[5];
     let var3 = partes[8];
-       const valor311 = FindWord(var3);
+    if(lenght===2){
+       var1 = partes[0];
+       var2 = partes[5];
+       var3 = partes[8];
+      const valor311 = FindWord(var3);
        const valor322 = FindWord(valor11[0].variable)
-       if(valor322){
+      if(valor322){
         if(valor311 && valor322 !== valor311){
           if(valor322 === "FLOT" && valor311 === "ENT"){
             
@@ -179,6 +197,10 @@ if(line.match(regex_test)){
           }
         }
       }
+    }
+ 
+       
+
       ErrorTable.innerHTML += error;  
     
     }
@@ -249,20 +271,39 @@ function getInfoFunction (){
   let arrayFunction = [];
   let lines = textarea.value.split("\n").filter(line => line != " ")
   let lexemas = []
-  
+  let info;
+  let numPalabras=0;
   for (let line of lines) {
     const linelexemas = line.trim().split(" ").filter(line => line != ' ')
 
   if (line.trim().match(regex_function1)) {
     let parts = line.split(/\s|[(,)]+/);
-  
-    let type = parts[0];
-    let name = parts[1];
-    let variable1 = parts[5];
-    let variable =parts[9];
-    // console.log("Este es el texto en partes "+partes+" y la variable es "+variable)
-  
-    let info = {
+  //AQui vamos a hace un if que determine cuantos parámetros tiene la función
+  let type, name, variable1,variable;
+  let palabras;
+  const match = line.match(/\((.*?)\)/);
+
+  if (match) {
+    const contenido = match[1]; // Obtener el contenido capturado entre los paréntesis
+    
+    if(contenido.length===1) {
+      console.log("El contendo esta vacio bro")
+      palabras = [];
+      numPalabras = 0;
+      console.log(`Palabras dentro de la funcion que descompone: ${numPalabras}`);
+    }else{
+     palabras = contenido.split(/\s*,\s*/); // Dividir el contenido en palabras utilizando coma y espacios como separadores
+     numPalabras = palabras.length; // Obtener el número de palabras
+    console.log(`Palabras dentro de la funcion que descompone: ${numPalabras}`);
+    }
+  }
+  switch(numPalabras){
+    case 2:
+     type = parts[0];
+    name = parts[1];
+    variable1 = parts[5];
+    variable =parts[9];   
+     info = {
       type,
       name,
       variable1,
@@ -270,10 +311,66 @@ function getInfoFunction (){
     };
     arrayGlobal.push(info);
     arrayFunction.push(info);
+
+    break;
+
+    case 1:
+       type = parts[0];
+      name = parts[1];
+      variable1 = parts[5];
+      variable = "";
+      console.log("Partes de un parametro"+parts+" y la variable es "+variable1)
     
+       info = {
+        type,
+        name,
+        variable1,
+        variable,
+      };
+      arrayGlobal.push(info);
+      arrayFunction.push(info);
+  
+      break;
+      case 0:
+        type = parts[0];
+        name = parts[1];
+        variable1 = "";
+        variable = "";
+       console.log("Partes vacia "+parts+" y la variable es "+type)
+      
+         info = {
+          type,
+          name,
+          variable1,
+          variable,
+        };
+        arrayGlobal.push(info);
+        arrayFunction.push(info);
+        break;
+  }
   }
 }
 return arrayFunction;
+}
+
+function getLenghtFunction(text){
+  let numPalabras = 0;
+  let palabras;
+  const match = text.match(/\((.*?)\)/);
+
+  if (match) {
+    const contenido = match[1]; // Obtener el contenido capturado entre los paréntesis
+    
+    if(contenido.length===1) {
+      palabras = [];
+      numPalabras = 0;
+    }else{
+     palabras = contenido.split(/\s*,\s*/); // Dividir el contenido en palabras utilizando coma y espacios como separadores
+     numPalabras = palabras.length; // Obtener el número de palabras
+    }
+     
+  }
+  return numPalabras;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -284,20 +381,8 @@ function getLexema() {
   ++counterVal;
   for (let line of lines) {
     const linelexemas = line.trim().split(" ").filter(line => line != ' ')
-    if(line.match(regex_test)){
-         //Heres comes the regex that make to match with the ENT CAD y FLOT en #Ale2 = suma ( 303 , 303 )
-          var entfun = /^3[0-9]+3$/g
-          var entfunmatch = line.matchAll(entfun)
-  
-    
-          var flotfun = /^[0-9]+\.3[0-9]+3$/g
-          var flotfunmatch = line.matchAll(flotfun);
-          
-          var cadfun = /(["'])[A-Z]+\1/gi;
-          var cadfunmatch = line.matchAll(cadfun);
-    }
-    
     if (line.trim().match(regex_function1)) {
+
       let parts = line.split(/\s|[(,)]+/);
       let type = parts[0];
       let name = parts[1];
