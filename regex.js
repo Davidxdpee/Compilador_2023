@@ -31,3 +31,5 @@ export const regex_test = /^#Ale[0-9]+\s\=\s[a-zA-Z]+\s\(\s/;
 export const regex_OPAn = /^#Ale[0-9]*\s\=\s*(?:#Ale\d+|\d+|\(\s*[?:#Ale\d+|\d+\-*\/\%\s]+\s*\))(\s*[+\-*\%\/]\s*(?:#Ale\d+|\d+|\(\s*[?:#Ale\d+|\d+\-*\/\%\s]+\s*\))){1,}\s\;$/
 export const cleanSpaces = (arr) => arr.filter(element => element != "")
 export const regex_detectFunction = /^(FLOT|CAD|ENT)\s[a-zA-Z]+\s\(/
+export const regex_StartFunction = /^\{\s*$/;
+export const regex_endFunction = /^\}\s*$/;

@@ -1,72 +1,27 @@
-import { regex_detectFunction,cleanSpaces,regex_OPAn, LineNumber, compilador, inputFile, loadButton, regex_CAD, regex_ENT, regex_FLOT, regex_TYPE, regex_aritmetics, regex_asignation, regex_asignation2, regex_boolean, regex_callfunction, regex_constfunction, regex_function, regex_function1, regex_return, regex_separator, regular_expresion, rows, table, textarea, textarea1, variable1, variable2, regex_test } from "./regex.js";
+import { regex_endFunction,regex_StartFunction,regex_detectFunction,cleanSpaces,regex_OPAn, LineNumber, compilador, inputFile, loadButton, regex_CAD, regex_ENT, regex_FLOT, regex_TYPE, regex_aritmetics, regex_asignation, regex_asignation2, regex_boolean, regex_callfunction, regex_constfunction, regex_function, regex_function1, regex_return, regex_separator, regular_expresion, rows, table, textarea, textarea1, variable1, variable2, regex_test } from "./regex.js";
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Here we call the botton to compile and print the table of Triplo
 compilador.addEventListener("click", () => {
-   
     print()
 })
 
-//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function prueba (){
-    const codigo = `ENT #Ale1 , #Ale2 ;
-CAD #Ale3 , #Ale4 ;
-FLOT #Ale5 ;
-#Ale1 = #Ale1 + #Ale2 ;
-FLOT Suma ( ENT #Ale22 , FLOT #Ale23 )
-{
-ENT #Ale24 ;
-#Ale22 = 303 ;
-#Ale24 = 323 ;
-#Ale23 = #Ale24 + #Ale22 ;
-return #Ale23 ;
-}
-
-#Ale5 = #Ale2 - #Ale1 ;
-#Ale5 = Suma (#Ale1 , #Ale2 ) ;
-#Ale3 = "Hola" ;`;
-
-const regex = /FLOT Suma \(\s*(ENT|CAD|FLOT)\s+#[a-zA-Z0-9]+\s*,\s*(ENT|CAD|FLOT)\s+#[a-zA-Z0-9]+\s*\)\s*\{([\s\S]*)\}/;
-
-const match = codigo.match(regex);
-
-if (match) {
-  const inicio = codigo.slice(0, match.index).split('\n').length;
-  const fin = inicio + match[0].split('\n').length - 1;
-  console.log(`La función empieza en la línea ${inicio} y termina en la línea ${fin}`);
-} else {
-  console.log('No se encontró la función');
-}
-}
-
-let triploOriginal = {
-    linea: '',
-    do: '',
-    df: '',
-    op: ''
-}
-
-
-
+//Here we make the triplo
 
 function getLexema() {
-    const regex_endFunction = /^\}\s*$/;
-    
-    let lines = textarea.value.split("\n").filter(line => line != " ")
-    let num = []
+
+    let lines = textarea.value.split("\n").filter(line => line != " ") 
     let counterVal = 1;
-    let tablaTriplo = []
+    let triploTable = []
     
-    let numeroDespuesFuncion = null;
         for (let line of lines) {
-        const linelexemas = line.trim().split(" ").filter(line => line != ' ')
        
-
-        // Aqui serían los que solo es de tipo A = B
-
+        //Here we check the type of asignation A = B
         if (line.match(regex_asignation2)) { 
-            let parts = line.split(/\s|[(,)]+/);
-            tablaTriplo.push(
+            let parts = line.split(/\s|[(,)]+/); //Split the line in parts for use eachone
+            triploTable.push(
                 {
                     line: counterVal++,
                     do: 'T1',
@@ -74,7 +29,7 @@ function getLexema() {
                     op: '='
                 }
             )
-            tablaTriplo.push(
+            triploTable.push(
                 {
                     line: counterVal++,
                     do: parts[0],
@@ -83,13 +38,13 @@ function getLexema() {
                 }
             )
         }  
-        //Aqui los de tipo A = Operacion con n elementos
+        //Here we analyze the OPA A = B OPA C ;      A = B + C
         if (line.trim().match(regex_OPAn)) {
         let tokens = cleanSpaces(line.split(" ")) 
+            //We use a foreach to print both registers by each OPA
             for(let i=1; i<tokens.length; i++){
-                console.log(tokens[i])
                 if (["=", "-", "/", "+", "*", "%"].includes(tokens[i])) {
-                tablaTriplo.push(
+                triploTable.push(
                 {
                     line: counterVal++,
                     do: 'T1',
@@ -98,7 +53,7 @@ function getLexema() {
                 })
                 }
             }
-            tablaTriplo.push(
+            triploTable.push(
                 {
                     line: counterVal++,
                     do: tokens[0],
@@ -107,44 +62,38 @@ function getLexema() {
                 }
             ) 
         }
-
+        //Here is when you call a function #Ale4 = Suma ( #Ale5 , #Ale6 ) [It can be empty or with parameters]
         if(line.match(regex_test)){
-            console.log("Se detecto la llamada ala funcion:"+line+" en la linea "+counterVal);
             let val = getJMPfunction();
-            let numPalabras = 0;
-            let palabras;
-            let parts = line.split(/\s|[(,)]+/);
-            console.log("El tamaño de la función es "+parts.length)
+            let numvariables = 0;
+            let variables;
             const match = line.match(/\((.*?)\)/);
 
             if (match) {
-                const contenido = match[1]; // Obtener el contenido capturado entre los paréntesis
+                const content = match[1]; //Here we have the content of the function 
                 
-                if(contenido.length===1) {
-                  console.log("El contendo esta vacio bro")
-                  palabras = [];
-                  numPalabras = 0;
-                  console.log(`Palabras dentro de la funcion que descompone: ${numPalabras}`);
+                if(content.length===1) {
+                  variables = [];
+                  numvariables = 0;
                 }else{
-                 palabras = contenido.split(/\s*,\s*/); // Dividir el contenido en palabras utilizando coma y espacios como separadores
-                 numPalabras = palabras.length; // Obtener el número de palabras
-                console.log(`Palabras dentro de la funcion que descompone: ${numPalabras}`);
+                 variables = content.split(/\s*,\s*/); // Split the content in words in an array
+                 numvariables = variables.length; // We get the lenght of the array
                 }
               }
-
-            switch(numPalabras){
+            //Here we check the number of the variables for each case generate the triplo 
+            //Can be 2 variables, 1 or 0
+            switch(numvariables){
                 case 0:
-                    console.log("Vacio hermanito")
-                    break;
+
+                break;
                 case 1:
-                    console.log("Un parametro hermanito")
-                    tablaTriplo.push({
+                    triploTable.push({
                         line: counterVal++,
                         do:"T1",
-                        df: palabras[0],
+                        df: variables[0],
                         op: '='
                     })
-                    tablaTriplo.push({
+                    triploTable.push({
                         line: counterVal++,
                         do: val[2].return,
                         df: "T1",
@@ -153,27 +102,26 @@ function getLexema() {
                     
                     break;
                 case 2:
-                    console.log("Dos parámetros")
-                    tablaTriplo.push({
+                    triploTable.push({
                         line: counterVal++,
                         do:"T1",
-                        df: palabras[0],
+                        df: variables[0],
                         op: '='
                     })
-                    tablaTriplo.push({
+                    triploTable.push({
                         line: counterVal++,
                         do: val[0].startFunction,
                         df: "T1",
                         op: '='
                     })
     
-                    tablaTriplo.push({
+                    triploTable.push({
                         line: counterVal++,
                         do:"T1",
-                        df: palabras[1],
+                        df: variables[1],
                         op: '='
                     })
-                    tablaTriplo.push({
+                    triploTable.push({
                         line: counterVal++,
                         do:val[0].endFunction,
                         df: "T1",
@@ -181,24 +129,21 @@ function getLexema() {
                     })    
                     break;
             }
-    
-            
-            let valor = getJMPfunction();
-            let  start = Number(valor[1].startFunction) +1;
-            tablaTriplo.push({
+            //We get the length and set the JMP and the number
+            let value = getJMPfunction();
+            let  start = Number(value[1].startFunction) +1;
+            triploTable.push({
                 line: counterVal++,
                 do:"",
                 df: start,
                 op: 'JMP'
             })
         }
-      
+        //Here we detect where start and end the function to set the JMP
         if(line.match(regex_detectFunction)){
-          //  console.log("Se detecto la funcion:"+line);
-            
-            let valor = getJMPfunction();
-          let  end = Number(valor[3].endFunction) +2;
-            tablaTriplo.push(
+          let value = getJMPfunction();
+          let  end = Number(value[3].endFunction) +2;
+            triploTable.push(
                 {
                     line: counterVal++,
                     do: "",
@@ -208,12 +153,13 @@ function getLexema() {
             ) 
         }
 
-
+        //Here we check the return variable [return #Ale22 ;]
+        //And set the triplo and the JMP
         if(line.match(regex_return)){
             let parts = line.split(/\s|[(,)]+/);
-            let valor = getJMPfunction();
-            let  ret = Number(valor[4].return) +1;
-            tablaTriplo.push(
+            let value = getJMPfunction();
+            let  ret = Number(value[4].return) +1;
+            triploTable.push(
                 {
                     line: counterVal++,
                     do: "T1",
@@ -221,16 +167,16 @@ function getLexema() {
                     op: '='
                 }
             )
-            tablaTriplo.push(
+            triploTable.push(
                 {
                     line: counterVal++,
-                    do: valor[4].startFunction,
+                    do: value[4].startFunction,
                     df: "T1",
                     op: '='
                 }
             )
             
-            tablaTriplo.push(
+            triploTable.push(
                 {
                     line: counterVal++,
                     do: "",
@@ -239,39 +185,35 @@ function getLexema() {
                 }
             ) 
         }
-
-
-
     }
-    // console.log(triploOriginal, triplo)
-    console.log(tablaTriplo)
-    return tablaTriplo
-
-  
-
-
+    //Print the table to verify if its everything is correct
+    console.log(triploTable)
+    return triploTable
 }
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Here we get the information to set the number to jump in the JMP and
+//the information necessary to complete the triplo
 function getJMPfunction (){
-    const regex_StartFunction = /^\{\s*$/;
-   const regex_endFunction = /^\}\s*$/;
+
     let lines = textarea.value.split("\n").filter(line => line != " ")
     let num = []
     let counterVal = 1;
-    let tablaTriplo = []
-    let ejemplo=null;
+    let triploTable = []
+    let jump=null;
     let ret=null;
     let numeroDespuesFuncion = null;
         for (let line of lines) {
-        const linelexemas = line.trim().split(" ").filter(line => line != ' ')
-       
+   
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+         
+//In this part we remake the function of getLexema
+//but only to have the table of the triplo and get the information necessary
 
-        // Aqui serían los que solo es de tipo A = B
-
-        if (line.match(regex_asignation2)) { 
+//Here we check the type of asignation A = B  
+           if (line.match(regex_asignation2)) { 
             let parts = line.split(/\s|[(,)]+/);
-            tablaTriplo.push(
+            triploTable.push(
                 {
                     line: counterVal++,
                     do: 'T1',
@@ -279,7 +221,7 @@ function getJMPfunction (){
                     op: '='
                 }
             )
-            tablaTriplo.push(
+            triploTable.push(
                 {
                     line: counterVal++,
                     do: parts[0],
@@ -288,12 +230,12 @@ function getJMPfunction (){
                 }
             )
         }  
-        //Aqui los de tipo A = Operacion con n elementos
+        //Here we analyze the OPA A = B OPA C ;      A = B + C
         if (line.trim().match(regex_OPAn)) {
         let tokens = cleanSpaces(line.split(" ")) 
             for(let i=1; i<tokens.length; i++){
                 if (["=", "-", "/", "+", "*", "%"].includes(tokens[i])) {
-                tablaTriplo.push(
+                triploTable.push(
                 {
                     line: counterVal++,
                     do: 'T1',
@@ -302,7 +244,7 @@ function getJMPfunction (){
                 })
                 }
             }
-            tablaTriplo.push(
+            triploTable.push(
                 {
                     line: counterVal++,
                     do: tokens[0],
@@ -312,15 +254,10 @@ function getJMPfunction (){
             ) 
         }
 
-
-       
-
-
-
         if(line.match(regex_return)){
             let parts = line.split(/\s|[(,)]+/);
 
-            tablaTriplo.push(
+            triploTable.push(
                 {
                     line: counterVal++,
                     do: "T1",
@@ -329,41 +266,31 @@ function getJMPfunction (){
                 }
             )
             
-            tablaTriplo.push(
+            triploTable.push(
                 {
                     line: counterVal++,
                     do: "",
-                    df: "Aquivaelnumero",
+                    df: "",
                     op: 'JMP'
                 }
             ) 
         }
-
-        if (line.match(regex_endFunction)) {
-            //  console.log("Se termino la funcion:" + line);
-             
+        //We detect where end the function and get the number
+        if (line.match(regex_endFunction)) {             
               numeroDespuesFuncion = counterVal;
               num.push({
                   endFunction: numeroDespuesFuncion++,
                   startFunction: '',
                   return: ''
               })
-              
-         //     console.log("El numero es ; "+numeroDespuesFuncion)
-          
           }
   
-  
-          if (line.match(regex_StartFunction)) {
-            //  console.log("Se comienza la funcion:" + line);
-             
-             ejemplo = counterVal;
-              
-              //console.log("El numero es ; "+ejemplo)
-  
+        //We detect where start the function and ge the number to the JMP
+          if (line.match(regex_StartFunction)) {             
+             jump = counterVal;
               num.push({
                   endFunction: numeroDespuesFuncion,
-                  startFunction: ejemplo,
+                  startFunction: jump,
                   return: ''
               })
            
@@ -371,24 +298,19 @@ function getJMPfunction (){
 
 
         if (line.match(regex_test)) {
-            console.log("Se toma el return en:" + line);
             let parts = line.split(/\s|[(,)]+/);
-              ret = counterVal;
-            console.log("El numero es del la llamada es ; "+ret)
-
-
-
-            let numPalabras = 0;
-            let palabras;
+            ret = counterVal;
+            let numvariables = 0;
+            let variables;
             const match = line.match(/\((.*?)\)/);
 
             if (match) {
-              const contenido = match[1]; // Obtener el contenido capturado entre los paréntesis
-               palabras = contenido.split(/\s*,\s*/); // Dividir el contenido en palabras utilizando coma y espacios como separadores
-               numPalabras = palabras.length; // Obtener el número de palabras
-              console.log(`Número de palabras dentro de los paréntesis: ${numPalabras}`);
+              const content = match[1]; //Get the parameters in the function
+               variables = content.split(/\s*,\s*/); //Set it in an array
+               numvariables = variables.length; // Get the lenght of the parameters
             }
-            if(numPalabras>=2){
+            //If the lenght is 2 the number of the JMP is more than if is 1 parameter
+            if(numvariables>=2){
                 ret =ret+6;
             }else{
                 ret= ret +4;
@@ -396,12 +318,12 @@ function getJMPfunction (){
 
             num.push({
                 endFunction: '',
-                startFunction: parts[0], //Se lo asigno a startfunction pero es nada más el segundo valor asignado al
+                startFunction: parts[0], //Here we save the first variable to can compare
                 return: ret
             })
          
         }
-
+        //Here we get the name of the variable that is returning
         if(line.match(regex_return)){
             let parts = line.split(/\s|[(,)]+/);
             num.push({
@@ -412,54 +334,46 @@ function getJMPfunction (){
          
         }
         if(line.match(regex_detectFunction)){
-            let numPalabras = 0;
-            let palabras;
+            let numvariables = 0;
+            let variables;
             let result;
             const match = line.match(/\((.*?)\)/);
 
             if (match) {
-              const contenido = match[1]; // Obtener el contenido capturado entre los paréntesis
-               palabras = contenido.split(/\s*,\s*/); // Dividir el contenido en palabras utilizando coma y espacios como separadores
-               numPalabras = palabras.length; // Obtener el número de palabras
-               result = Array.from(contenido.matchAll(/\s*#\w+\s*/g)).map(match => match[0]);
-             console.log("El resultado de este pedo es "+result)
-              console.log(`Número de palabras dentro de los paréntesis: ${numPalabras}`);
+                const content = match[1]; //Get the parameters in the function
+                variables = content.split(/\s*,\s*/); //Set it in an array
+                numvariables = variables.length; // Get the lenght of the parameters
+               result = Array.from(content.matchAll(/\s*#\w+\s*/g)).map(match => match[0]); 
             }
-            if(numPalabras>=2){
+            //Case of the parameter will be 2 or 1
+            if(numvariables>=2){
                 num.push({
                     endFunction: result[1],
-                    startFunction: result[0], //Se le asigna a estas variables los parámetros de la funcion
+                    startFunction: result[0], //Here we set the parameters the function to dont declarate more variables
                     return: '',
                 })
     
             }else{
                 num.push({
-                    endFunction: palabras[0],
-                    startFunction: '', //Se le asigna a estas variables los parámetros de la funcion
+                    endFunction: variables[0], //Set the unique parameter of the function
+                    startFunction: '', 
                     return: '',
                 })
             } 
         }   
     }
-   
-    console.log(num)
     return num;
-
 }
-//Se cuentan cuantos JUMPS hay y dependiendo de eso es la sumatoria
-
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Here we gonna print the table
 function print() {
-    var tbody = document.getElementById("triplo1");
+    let tbody = document.getElementById("triplo1");
     let triplo =  getLexema()
     tbody.innerHTML = `
   
         <tbody id="triplo1">
         <tbody>
   `;
-  
-
-
     triplo.forEach(item => {
         const tr = document.createElement('tr')
         tr.innerHTML =
@@ -471,5 +385,4 @@ function print() {
     `
         tbody.appendChild(tr)
     });
-    console.log(triploOriginal);
 }
