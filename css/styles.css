@@ -1,0 +1,204 @@
+html,
+body {
+	height: 100%;
+  zoom: 1;
+}
+
+
+
+body {
+	margin: 0;
+	background: linear-gradient(45deg, #49a09d, #5f2c82);
+	/* background-image: linear-gradient(-25deg, #616161 0%, #96B7C4 100%); */
+    font-family: sans-serif;
+	font-weight: 100;
+}
+
+#lbl0{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 90px;
+    top: 30px;
+}
+
+.lbl1 {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 450px;
+    top: 30px;
+   
+}
+
+
+
+.lbl2{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 900px;
+    top: 30px;
+   
+}
+
+.table {
+	width: 240px;
+	border-collapse: collapse;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    position: absolute;
+    left: 400px;
+    top: 80px;
+    text-align: center;
+}
+.error td:first-child {
+    width: 100px;
+    height: 25px;
+    text-align: center;
+
+  }
+  
+  .error td:nth-child(2) {
+    width: 100px;
+    text-align: center;
+
+  }
+  .error td:nth-child(3) {
+    width: 70px;
+    text-align: center;
+  }
+  .error td, th:nth-child(4) {
+    width: 270px;
+    text-align: left;
+  }
+
+.error{
+    position: absolute;
+    left: 690px;
+    top: 80px;
+    text-align:center;
+    /* width: 250px; */
+	border-collapse: collapse;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+th,
+td {
+	padding: 7px;
+	background-color: rgba(255,255,255,0.2);
+	color: #fff;
+
+}
+
+th {
+	text-align: center;
+}
+
+.error th {
+		background-color: #55608f;
+       
+}
+.table th{
+    background-color: #55608f;
+}
+
+#numeros-linea {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+    top: 80px;
+    font-family: monospace;
+    color: black;
+    font-size: 15px;
+
+   
+  }
+  
+  #textarea {
+    position: absolute;
+    top: 80px;
+    left: 30px;
+    font-family: monospace;
+    border-radius: 16px;
+    border: none;
+    font-size: 15px;
+    padding: 10px;
+    overflow: auto;
+
+  }
+
+
+  .error tr:hover{
+    background-color: rgba(255,255,255,0.3);
+    
+  }
+
+  .table tr:hover{
+    background-color: rgba(255,255,255,0.3);
+  }
+
+  
+
+  .button {
+    min-width: 300px;
+    min-height: 30px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 22px;
+    left: 75%;
+    top: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    font-weight: 700;
+    color: #313133;
+    background: #4FD1C5;
+  background: linear-gradient(90deg, rgba(129,230,217,1) 0%, rgba(79,209,197,1) 100%);
+    border: none;
+    border-radius: 1000px;
+    box-shadow: 12px 12px 24px rgba(79,209,197,.64);
+    transition: all 0.3s ease-in-out 0s;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    padding: 10px;
+    transition: all .3s ease-in-out 0s;
+    
+    }
+  
+  
+  button:hover::before, button:focus::before {
+    opacity: 1;
+  }
+  
+ 
+  
+  button:hover::after, button:focus::after {
+    animation: none;
+    display: none;
+  }
+  
+ 
+  
+#triplo{
+ 
+  position: absolute;
+  left: 50%;
+  /* top: 60%; */
+  top: 20%;
+  padding: 3px;
+  width: 10%;
+	border-collapse: collapse;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.triplo th {
+  background-color: #55608f;
+     
+}
