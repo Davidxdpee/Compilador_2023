@@ -122,14 +122,17 @@ th {
   
   #textarea {
     position: absolute;
-    top: 80px;
-    left: 30px;
+    top: 10.5%;
+    left: 2%;
     font-family: monospace;
     border-radius: 16px;
     border: none;
     font-size: 15px;
     padding: 10px;
     overflow: auto;
+    white-space: nowrap; /*Avoid the text make an enter */
+    overflow-x: auto; /* Make a horizontal bar when it ends */
+    resize: none; /* The user cant resize the textarea */
 
   }
 
@@ -188,14 +191,16 @@ th {
  
   position: absolute;
   left: 50%;
-  /* top: 60%; */
-  top: 20%;
+  top: 40%;
+  /* top: 20%; */
   padding: 3px;
   width: 10%;
 	border-collapse: collapse;
 	overflow: hidden;
 	box-shadow: 0 0 20px rgba(0,0,0,0.1);
   text-align: center;
+  white-space: nowrap;
+  overflow-x: auto;
 }
 
 .triplo th {

@@ -26,6 +26,7 @@ function FindWord(word) {
     return null;
   }
   
+  
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //To get and make the error table
   
@@ -76,83 +77,12 @@ if(line.match(regex_test)){
   
     ErrorTable.innerHTML += error;
   }
-  /////////////////////////////////////////////////////////////////////////////////////////////
-  
- //Here we check the first word of asignation that it exist and if exists we check if is valid
- // In an asignation where we check #Ale22 in #Ale5 = Suma ( #Ale22, #Ale44 )
-    if(line.match(regex_test)){
-      let parts = line.split(/\s|[(,)]+/);
-      let var1 = parts[0];
-      let var2 = parts[5];
-      let var3 = parts[8];
-      let lenght = getLenghtFunction (line);
-      //We check firs it the function is empty or with parameters
-      //Here we check if the second word does exist and if is compatible with the asignation
-      if(lenght>0){
-        var1 = parts[0];
-        var2 = parts[5];
-        var3 = parts[8];
-        const valor31 = FindWord(var2);
-        const valor32 = FindWord(valor11[0].variable1)
-           if(valor32){
-            if(valor31 && valor32 !== valor31){
-              if(valor32 === "FLOT" && valor31 === "ENT"){
-                
-              }else{ 
-              error += `<tr><td>ErrSem${++counterVal}</td><td>${var2}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor32}"</td></tr>`;
-              }
-            } else {
-              if(!valor31){
-                error += `<tr><td>ErrSem${++counterVal}</td><td>${var2}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
-              }
-            }
-            
-          }
-      }
-   }
-          
-  ///////////////////////////////////////////////////////////////////////////////////////////////
-  
-  
-    if(line.match(regex_test)){
-      //Here we gonna check if the third word exist and if is compatible with the asignation that is second parameter
-      //We check the function is 2 or 1 parameter
-      //In a function #Ale22 in #Ale2 = Suma ( #Ale23 , #Ale22 )
-      let lenght = getLenghtFunction (line);
-      let partes = line.split(/\s|[(,)]+/);
-      let var1 = partes[0];
-      let var2 = partes[5];
-      let var3 = partes[8];
-      if(lenght===2){
-         var1 = partes[0];
-         var2 = partes[5];
-         var3 = partes[8];
-        const valor311 = FindWord(var3);
-         const valor322 = FindWord(valor11[0].variable)
-        if(valor322){
-          if(valor311 && valor322 !== valor311){
-            if(valor322 === "FLOT" && valor311 === "ENT"){
-              
-            }else{ 
-            error += `<tr><td>ErrSem${++counterVal}</td><td>${var3}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos  es "${valor322}"</td></tr>`;
-            }
-          } else {
-            if(!valor311){
-              error += `<tr><td>ErrSem${++counterVal}</td><td>${var3}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
-            }else{
-    
-            }
-          }
-        }
-      }
-        ErrorTable.innerHTML += error;  
-}
-          
   
   ////////////////////////////////////////////////////////////////////////// /////////////////////////////////
 
     ///Here detect if is an return
     if(line.match(regex_return)){
+      console.log("El lexema es "+linelexemas[1])
       let error = "";
       const valor13 = FindWord(linelexemas[1]);
   if(valor11[0].type){
@@ -173,8 +103,41 @@ if(line.match(regex_test)){
   
   
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  if (line.match(regex_test)) {
+    let length = getLenghtFunction(line);
+if(length>0){    
+    const match = line.match(/\((.*?)\)/);
+if (match) {
+  const content = match[1]; 
+  let words = content.split(/\s*,\s*/); 
+  words = words.map(str => str.replace(/\s+/g, ''));
+  for (let i = 0; i < words.length; i++) {
+    
+    const valor = FindWord(words[i]);
+    const valor2 = FindWord(valor11[i].variable)
+    console.log(valor)
+    if (valor) {
+      if(valor && valor2 !== valor){
+        if(valor2 === "FLOT" && valor === "ENT"){
+                
+         }else{ 
+               error += `<tr><td>ErrSem${++counterVal}</td><td>${words[i]}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor2}"</td></tr>`;
+        }
+      }else {
+               if(!valor){
+              error += `<tr><td>ErrSem${++counterVal}</td><td>${valor}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
+                  }
+                    }
+        }
+     }
+  }
+}else{
+  console.log("No hay parámetros")
+}
+ErrorTable.innerHTML += error;
+}
   
-  
+///////////////////////////////////////////////////////////////////
   //Here it detect if the asignation is correct from  the type A = B ;
     if(line.match(regex_asignation2)){
       const valor1 = FindWord(linelexemas[0]);
@@ -207,73 +170,61 @@ if(line.match(regex_test)){
     }
   }
   //Function to get information for the error table
-  function getInfoFunction (){
-    let arrayFunction = [];
+  function  getInfoFunction (){
     let lines = textarea.value.split("\n").filter(line => line != " ")
-    let info;
-    let numWords=0;
-    for (let line of lines) {
+    let parameters=[];
+
+  for (let line of lines) {
     if (line.trim().match(regex_function1)) {
       let parts = line.split(/\s|[(,)]+/);
   
     //Here we use and function to know how many parameters have the function
-    let type, name, variable1,variable;
 
- numWords = getLenghtFunction(line);
-
-//In eachcase of the lenght we set and valors to the array info
-    switch(numWords){
-      case 2:
-       type = parts[0];
-      name = parts[1];
-      variable1 = parts[5];
-      variable =parts[9];   
-       info = {
-        type,
-        name,
-        variable1,
-        variable,
-      };
-      arrayGlobal.push(info);
-      arrayFunction.push(info);
-  
-      break;
-  
-      case 1:
-         type = parts[0];
-        name = parts[1];
-        variable1 = parts[5];
-        variable = "";
-
-         info = {
-          type,
-          name,
-          variable1,
-          variable,
-        };
-        arrayGlobal.push(info);
-        arrayFunction.push(info);
-    
-        break;
-        case 0:
-          type = parts[0];
-          name = parts[1];
-          variable1 = "";
-          variable = "";
+    let numWords = 0;
+    let words;
+    const match = line.match(/\((.*?)\)/);
+    if (match) {
+      const content = match[1]; 
+      
+      if(content.length===1) {
+        words = [];
+        numWords = 0;
+      }else{
+       words = content.split(/\s*,\s*/); 
+       numWords = words.length; 
+      }
+       
+    }
+    if(numWords>0){
+      const match = line.match(/\((.*?)\)/);
+      if (match) {
+      const content = match[1]; 
+      let words = content.split(/\s*,\s*/); 
+      words = words.map(str => str.replace(/\s+/g, ''));
+   
+      for (let i = 0; i < words.length; i++) {
+       let result = Array.from(words[i].matchAll(/\s*#\w+\s*/g)).map(match => match[0]);   
+       console.log(result)
+         parameters.push({
+          type : parts[0],
+          name : parts[1],
+          variable: result.join(' ')
+          
+        })
+      }
+   
+      }
+    }else{
+      parameters.push({
+        type : parts[0],
+        name : parts[1],
+        variable: ''
         
-           info = {
-            type,
-            name,
-            variable1,
-            variable,
-          };
-          arrayGlobal.push(info);
-          arrayFunction.push(info);
-          break;
+      })
     }
     }
   }
-  return arrayFunction;
+  return parameters;
   }
   //Function to get the lenght of the Function
   function getLenghtFunction(text){
@@ -295,3 +246,12 @@ if(line.match(regex_test)){
     }
     return numWords;
   }
+
+
+
+
+
+
+
+
+  

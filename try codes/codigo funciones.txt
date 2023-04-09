@@ -31,3 +31,65 @@ return #Ale23 ;
 #Ale5 = #Ale2 - #Ale1 ;
 #Ale5 = Suma ( ) ;
 #Ale3 = "Hola" ;
+
+
+
+
+
+
+ENT #Ale1, #Ale2 , #Ale3 ;
+FLOT #Ale11 , #Ale22 , #Ale33 ;
+#Ale22 = 303;
+#Ale1 = 303 * #Ale22 ;
+FLOT suma () {
+#Ale33 = a + #Ale22 ;
+#Ale11 = #Ale33 + 2.6 ;
+return #Ale11 ;
+}
+#Ale2 = #Ale2 % 303 ;
+#Ale3 = suma ( ) ;
+
+
+
+
+ENT #Ale1, #Ale2 , #Ale3 ;
+FLOT #Ale11 , #Ale22 , #Ale33 ;
+#Ale22 = 303 ;
+#Ale1 = 303 * #Ale22 ;
+FLOT suma ( ENT #Ale111 ) 
+{
+#Ale33 = #Ale111 + #Ale22 ;
+#Ale11 = #Ale33 + 2.6 ;
+return #Ale11 ;
+}
+#Ale2 = #Ale2 % 303 ;
+#Ale3 = suma ( 75 ) ;
+
+ENT #Ale1 , #Ale2 , #Ale3 ;
+FLOT #Ale11 , #Ale22 , #Ale33 ;
+#Ale22 = 100 ;
+#Ale1 = 35 * #Ale22 ;
+FLOT suma ( ) 
+{
+#Ale33 = #Ale22 + #Ale22 ;
+#Ale11 = #Ale33 + 2.6 ;
+return #Ale11 ;
+}
+#Ale2 = #Ale2 % 303 ;
+#Ale3 = suma ( ) ;
+
+
+ENT #Ale1, #Ale2 , #Ale3 ;
+FLOT #Ale11 , #Ale22 , #Ale33 ;
+#Ale22 = 303 ;
+#Ale1 = 303 * #Ale22 ;
+FLOT suma ( ENT #Ale9 , ENT #Ale8 , ENT #Ale15  ) 
+{
+#Ale33 = #Ale111 + #Ale22 ;
+#Ale11 = #Ale33 + 2.6 ;
+return #Ale11 ;
+}
+#Ale2 = #Ale2 % 303 ;
+#Ale3 = suma ( 303 , 343 , 3403 ) ;
+
+3 parámetros

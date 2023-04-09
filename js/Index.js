@@ -1,7 +1,7 @@
 import { regex_test,LineNumber,compilador,inputFile,loadButton,regex_CAD,regex_ENT,regex_FLOT,regex_TYPE,regex_aritmetics,regex_asignation,regex_asignation2,regex_boolean,regex_callfunction,regex_constfunction,regex_function,regex_function1,regex_return,regex_separator,regular_expresion,rows,table,textarea,textarea1,variable1,variable2 } from "./regex.js";
 
 
-
+//This is the main class that we use to begin the program, beginning with the symbol table
 let lexemaExist;
 
 loadButton.addEventListener('click', function (e) {
