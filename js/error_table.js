@@ -103,6 +103,7 @@ if(line.match(regex_test)){
   
   
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //Here we check the parameters inside of a fuction  #Ale33 , #Ale44 in #Ale2 = Suma ( #Ale33 , #Ale44 )
   if (line.match(regex_test)) {
     let length = getLenghtFunction(line);
 if(length>0){    
@@ -116,19 +117,18 @@ if (match) {
     const valor = FindWord(words[i]);
     const valor2 = FindWord(valor11[i].variable)
     console.log(valor)
-    if (valor) {
-      if(valor && valor2 !== valor){
-        if(valor2 === "FLOT" && valor === "ENT"){
-                
-         }else{ 
-               error += `<tr><td>ErrSem${++counterVal}</td><td>${words[i]}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor2}"</td></tr>`;
-        }
-      }else {
-               if(!valor){
-              error += `<tr><td>ErrSem${++counterVal}</td><td>${valor}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
-                  }
-                    }
-        }
+   if (valor) {
+    if(valor2 && valor !== valor2){
+      if(valor2 === "FLOT" && valor === "ENT"){
+            
+      }else{ 
+          error += `<tr><td>ErrSem${++counterVal}</td><td>${words[i]}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor2}"</td></tr>`;
+      }
+    }
+  }else{
+                error += `<tr><td>ErrSem${++counterVal}</td><td>${words[i]}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
+  }
+  
      }
   }
 }else{
