@@ -106,6 +106,27 @@ function getLexema() {
 
       }
     }
+
+
+    ///////////////////////////////////////
+    // if(line.trim().match(regular_expresion)){
+      
+    //  const matches = [line].map(match => match[0]);
+
+    //   matches.forEach((match) => {
+    //     Recortamos únicamente los #Ale[0-9] y los buscamos en el array de lexemas
+    //     const found = lexemas.find((lexema) => lexema.lexema === keyword);
+    
+    //     Si no se encuentra la palabra en el array de lexemas, la agregamos con type: vacío
+    //     if (!found) {
+    //       lexemas.push({ type: '', lexema: keyword });
+    //     } else {
+    //       Si la palabra ya existe en el array, mantemos su propiedad type actual
+    //       found.type = found.type || '';
+    //     }
+    //   });
+    
+    // }
 ////////////////////////////////////////////////////////////////////////////////
     //Here we read each word of the String
     for (let lexema of linelexemas) {
@@ -121,6 +142,7 @@ function getLexema() {
           if (!line.match(regex_function1)) {
 
             if (lexema.match(regular_expresion)) {
+              
               lexemaEntry = {
                 type: linelexemas[0],
                 lexema
@@ -248,6 +270,20 @@ function getLexema() {
           lexemas.push(lexemaEntry)
         }
       }
+//Here we analyze the vars that starts with #Ale[0-9] and it does not declared
+      let regex_onlyvar = /#Ale[0-9]+/  
+if (lexema.match(regex_onlyvar)){
+        lexemaEntry = {
+          type: " ",
+          lexema
+        }
+        lexemaExist = !!lexemas.find(lexema => lexema.lexema == lexemaEntry.lexema)
+        if (!lexemaExist) {
+          lexemas.push(lexemaEntry)
+        }
+      }
+  
+
     }
   }
   return lexemas;

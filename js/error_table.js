@@ -15,17 +15,18 @@ compilador.addEventListener("click", (e) => {
   })
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Function to find words in the table of symbols
+
 function FindWord(word) {
-    for (let i = 0; i < rows.length; i++) {
-      const celda = rows[i].cells[0];
-      if (celda.textContent === word) {
-        const cell = rows[i].cells[1];
-        return cell.textContent;
-      }
+  for (let i = 0; i < rows.length; i++) {
+    const celda = rows[i].cells[0];
+    if (celda.textContent === word) {
+      const cell = rows[i].cells[1];
+      return cell.textContent || null;
     }
-    return null;
   }
-  
+  return null;
+}
+
   
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //To get and make the error table
@@ -55,52 +56,59 @@ function FindWord(word) {
   
   
   //Here we check de first part of the asignation that is #Ale5  in #Ale5 = Suma ( P , P)
-if(line.match(regex_test)){
+
+  if(line.match(regex_test)){
     let parts = line.split(/\s|[(,)]+/);
     let error = "";
     let var1 = parts[0];
-          const valor3 = FindWord(var1);
-        if(valor11[0].type){
-          if(valor3 && valor11[0].type !== valor3){
-            if(valor3 === "FLOT" && valor11[0].type === "ENT"){
+    const valor3 = FindWord(var1);
+
+    if(valor11[0].type){
+      if(typeof valor3 === "undefined" || valor3 === null || (typeof valor3 === "string" && valor3.trim() === "")){
+        error += `<tr><td>ErrSem${++counterVal}</td><td>${var1}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
+      }else if(valor3 && valor11[0].type !== valor3){
+        if(valor3 === "FLOT" && valor11[0].type === "ENT"){
                   
-            }else{ 
-            error += `<tr><td>ErrSem${++counterVal}</td><td>${var1}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor11[0].type}"</td></tr>`;
-            }
-            
-          } else {
-            if(!valor3){
-              error += `<tr><td>ErrSem${++counterVal}</td><td>${var1}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
-            }
+        }else{ 
+          error += `<tr><td>ErrSem${++counterVal}</td><td>${var1}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor3}"</td></tr>`;
           }
-        }
+      }
+    }
+
   
     ErrorTable.innerHTML += error;
   }
-  
+
+
+
   ////////////////////////////////////////////////////////////////////////// /////////////////////////////////
 
     ///Here detect if is an return
-    if(line.match(regex_return)){
-      console.log("El lexema es "+linelexemas[1])
-      let error = "";
+  if(line.match(regex_return)){  
+   let error = "";
       const valor13 = FindWord(linelexemas[1]);
-  if(valor11[0].type){
-    if(valor13 && valor11[0].type !== valor13){
-      error += `<tr><td>ErrSem${++counterVal}</td><td>${linelexemas[1]}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor11[0].type}"</td></tr>`;
-    } else {
-      if(!valor13){
-        error += `<tr><td>ErrSem${++counterVal}</td><td>${linelexemas[1]}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
-      }else{
-  
+      const cell = FindWord(linelexemas[1]);
+      console.log(cell)
+      console.log(cell.textContent)
+      if(!cell || typeof cell.textContent === "undefined" || cell.textContent === "") {
+        console.log("La variable "+linelexemas[1]+" se encontró pero no tiene dato")
+}
+
+if(valor11[0].type){
+  if(typeof valor13 === "undefined" || valor13 === null || (typeof valor13 === "string" && valor13.trim() === "")){
+      error += `<tr><td>ErrSem${++counterVal}</td><td>${linelexemas[1]}</td><td>${lineCounter}</td><td>Variable nula o indefinida</td></tr>`;
+  } else if(valor11[0].type !== valor13){
+      if(valor11[0].type === "FLOT" && valor13 === "ENT"){
+          // do nothing
+      } else {
+          error += `<tr><td>ErrSem${++counterVal}</td><td>${linelexemas[1]}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor11[0].type}"</td></tr>`;
       }
-    }
   }
+}
+
   ErrorTable.innerHTML += error;
   
     }
-  
-  
   
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //Here we check the parameters inside of a fuction  #Ale33 , #Ale44 in #Ale2 = Suma ( #Ale33 , #Ale44 )
@@ -117,17 +125,32 @@ if (match) {
     const valor = FindWord(words[i]);
     const valor2 = FindWord(valor11[i].variable)
     console.log(valor)
-   if (valor) {
-    if(valor2 && valor !== valor2){
-      if(valor2 === "FLOT" && valor === "ENT"){
-            
-      }else{ 
+
+    if(valor2){
+      if(typeof valor === "undefined" || valor === null || (typeof valor === "string" && valor.trim() === "")){
+        error += `<tr><td>ErrSem${++counterVal}</td><td>${words[i]}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
+      } else  if(valor2 !== valor){
+        if(valor2 === "FLOT" && valor === "ENT"){
+        }else{
           error += `<tr><td>ErrSem${++counterVal}</td><td>${words[i]}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor2}"</td></tr>`;
+        }
       }
     }
-  }else{
-                error += `<tr><td>ErrSem${++counterVal}</td><td>${words[i]}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
-  }
+
+
+
+
+  //  if (valor) {
+  //   if(valor2 && valor !== valor2){
+  //     if(valor2 === "FLOT" && valor === "ENT"){
+            
+  //     }else{ 
+  //         error += `<tr><td>ErrSem${++counterVal}</td><td>${words[i]}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor2}"</td></tr>`;
+  //     }
+  //   }
+  // }else{
+  //               error += `<tr><td>ErrSem${++counterVal}</td><td>${words[i]}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
+  // }
   
      }
   }
@@ -140,30 +163,27 @@ ErrorTable.innerHTML += error;
 ///////////////////////////////////////////////////////////////////
   //Here it detect if the asignation is correct from  the type A = B ;
     if(line.match(regex_asignation2)){
+      //Here we have the first word A in A = B
       const valor1 = FindWord(linelexemas[0]);
+      //Here we have the second word B in A = B
       const valor3 = FindWord(linelexemas[2]);
-      //if the word exist, it find the valor in the third word of the table
-      if (valor1) {
-        //If both valor does not match, print in the error table the lexema and his incompatibility
-        if (valor3 && valor1 !== valor3) {    
-          //Here we check if the first valor is flot and the second is ENT does not enter in the error table
-           if(valor1 === "FLOT" && valor3 === "ENT"){
-            
-           }else{
-            error+=  `<tr><td>ErrSem${++counterVal}</td><td>${linelexemas[2]}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor1}"</td></tr>`; 
-           }
-        } else {
+
+if(valor1){
+      //If the valor of the second word doesnot exist in the table, print the lexema and undefined variable
+  if(typeof valor3 === "undefined" || valor3 === null || (typeof valor3 === "string" && valor3.trim() === "")){
+    error+=  `<tr><td>ErrSem${++counterVal}</td><td>${linelexemas[2]}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
+  } else  if(typeof valor1 === "undefined" || valor1 === null || (typeof valor1 === "string" && valor1.trim() === "")){
+    //If the valor of the first word doesnot exist in the table, print the lexema and undefined variable
+  error+=  `<tr><td>ErrSem${++counterVal}</td><td>${linelexemas[0]}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;;
   
-          //If the valor of the third word doesnot exist in the table, print the lexema and undefined variable
-          if (!valor3) {
-            error+=  `<tr><td>ErrSem${++counterVal}</td><td>${linelexemas[2]}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
-          }
-        }
-      } else {
-          //If the valor of the first word doesnot exist in the table, print the lexema and undefined variable
-        error+=  `<tr><td>ErrSem${++counterVal}</td><td>${linelexemas[0]}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;;
-  
-        }
+  }else if(valor1!== valor3){
+     //Here we check if the first valor is flot and the second is ENT does not enter in the error table
+    if(valor1 === "FLOT" && valor3 === "ENT"){
+    }else{
+      error+=  `<tr><td>ErrSem${++counterVal}</td><td>${linelexemas[2]}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor1}"</td></tr>`; 
+    }
+  }
+}
        ErrorTable.innerHTML += error;
       }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
