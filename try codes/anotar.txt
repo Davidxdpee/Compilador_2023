@@ -1,0 +1,24 @@
+ENT #Ale1 , #Ale2 , #Ale3 ;
+ENT #Ale4, #Ale5 ;
+#Ale4 = 303 ;
+#Ale5 = 353 ;
+
+ENT Suma ( ENT #Ale6 , ENT #Ale7 ) 
+{
+#Ale1 = #Ale6 + #Ale7 ;
+return #Ale1 ;
+}
+
+ENT calcula ( ENT #Ale8 , ENT #Ale9 ) 
+{
+FLOT #Ale10 ;
+#Ale10 = #Ale4 % #Ale5 ;
+#Ale2 = Suma ( #Ale8 , #Ale9 ) ;
+return #Ale2 ;
+}
+
+#Ale3 = calcula ( #Ale4 , #Ale5 ) ;
+
+
+EXTRAER LA INFORMACION DE CADA FUNCION Y CON UNA REGEX RECORRER CADA ARRAY CON LA INFO HASTA ENCONTRAR
+LA OPERACION Y ASI HACER OTRA REGEX PARA BUSCAR EL LLAMADO Y SOBRE ESCRIBIR

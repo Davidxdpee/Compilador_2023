@@ -1,0 +1,16 @@
+const regexDefFuncion1 = new RegExp(`(ENT|CAD|FLOT)\\s+${nombre}\\s*\\(\\s*([^)]*?)\\s*\\)\\s*{([\\s\\S]+?)}`, 'g');
+const matchDefFuncion1 = regexDefFuncion1.exec(codigo);
+if (matchDefFuncion1 !== null) {
+  const contenidoFuncionLlamada1 = matchDefFuncion1[3].trim();
+  console.log(`Contenido de la función "${llamada}":`);
+  console.log(contenidoFuncionLlamada1);
+
+  
+  let lines = contenidoFuncionLlamada1.split("\n").filter(line => line != " ")
+  for (let line of lines) {
+    if (line.trim().match(regexLlamada)) {
+    console.log(line)
+    }
+  }
+  
+}

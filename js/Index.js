@@ -1,4 +1,4 @@
-import { regex_test,LineNumber,compilador,inputFile,loadButton,regex_CAD,regex_ENT,regex_FLOT,regex_TYPE,regex_aritmetics,regex_asignation,regex_asignation2,regex_boolean,regex_callfunction,regex_constfunction,regex_function,regex_function1,regex_return,regex_separator,regular_expresion,rows,table,textarea,textarea1,variable1,variable2 } from "./regex.js";
+import {txtopti,regex_test,LineNumber,compilador,inputFile,loadButton,regex_CAD,regex_ENT,regex_FLOT,regex_TYPE,regex_aritmetics,regex_asignation,regex_asignation2,regex_boolean,regex_callfunction,regex_constfunction,regex_function,regex_function1,regex_return,regex_separator,regular_expresion,rows,table,textarea,textarea1,variable1,variable2 } from "./regex.js";
 
 
 //This is the main class that we use to begin the program, beginning with the symbol table
@@ -304,6 +304,7 @@ function PrintTable(lexema) {
 clean.addEventListener("click", (e) => {
   e.preventDefault();
   document.getElementById("textarea").value = "";
+  txtopti.value=""
   const tablecomp = document.getElementById("table");
   tablecomp.innerHTML = `
   <tbody id="table">
@@ -321,6 +322,17 @@ clean.addEventListener("click", (e) => {
   </tbody>
 `;
 
+  const TriploTable = document.getElementById("triplo");
+  TriploTable.innerHTML= `
+  <thead>
+      <tr>
+  <th>Linea</th><th>Dato objeto</th> <th>Dato fuente</th> <th>Operador</th>
+</tr>   
+</thead>
+  <tbody id="triplo1">
+  <tbody>
+</table>
+  `
 })
 
 

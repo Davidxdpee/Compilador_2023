@@ -1,0 +1,86 @@
+ENT #Ale1 , #Ale2 , #Ale3 ;
+ENT #Ale4, #Ale5 ;
+#Ale4 = 303 ;
+#Ale5 = 353 ;
+
+ENT Suma ( ENT #Ale6 , ENT #Ale7 ) 
+{
+#Ale1 = #Ale6 + #Ale7 ;
+return #Ale1 ;
+}
+
+ENT calcula ( ENT #Ale8 , ENT #Ale9 ) 
+{
+#Ale2 = Suma ( #Ale8 , #Ale9 ) ;
+return #Ale2 ;
+}
+
+#Ale3 = calcula ( #Ale4 , #Ale5 ) ;
+-------------------------------------------------------------------------
+
+ENT #Ale1 , #Ale2 , #Ale3 ;
+ENT #Ale4, #Ale5 ;
+#Ale4 = 303 ;
+#Ale5 = 353 ;
+
+ENT Suma ( ENT #Ale6 , ENT #Ale7 ) 
+{
+FLOT #Ale8 ;
+#Ale8 = #Ale4 % #Ale5 ;
+#Ale1 = #Ale6 + #Ale7 ;
+#Ale8 = #Ale1 + #Ale8 ;
+return #Ale8 ;
+}
+
+ENT calcula ( ENT #Ale9 , ENT #Ale10 ) 
+{
+#Ale2 = Suma ( #Ale9 , #Ale10 ) ;
+return #Ale2 ;
+}
+#Ale3 = calcula ( #Ale4 , #Ale5 ) ;
+--------------------------------------------------------------------------------------------
+
+ENT #Ale1 , #Ale2 , #Ale3 ;
+ENT #Ale4, #Ale5 ;
+#Ale4 = 303 ;
+#Ale5 = 353 ;
+
+ENT Suma ( ENT #Ale6 , ENT #Ale7 ) 
+{
+FLOT #Ale8 ;
+#Ale8 = #Ale4 % #Ale5 ;
+#Ale1 = #Ale6 + #Ale7 ;
+#Ale8 = #Ale1 + #Ale8 ;
+return #Ale1 ;
+}
+
+ENT Calcula ( ENT #Ale9 , ENT #Ale10 )
+{
+#Ale2 = Suma ( #Ale9 , #Ale10 ) ;
+return #Ale2 ;
+}
+
+#Ale3 = calcula ( #Ale4 , #Ale5 ) ;
+-----------------------------------------
+
+ENT #Ale1 , #Ale2 , #Ale3 ;
+ENT #Ale4, #Ale5 ;
+#Ale4 = 303 ;
+#Ale5 = 353 ;
+
+ENT Suma ( ENT #Ale6 , ENT #Ale7 ) 
+{
+FLOT #Ale8 ;
+#Ale8 = #Ale4 % #Ale5 ;
+#Ale1 = #Ale6 + #Ale7 ;
+#Ale8 = #Ale1 + #Ale8 ;
+return #Ale1 ;
+}
+
+ENT Calcula ( ENT #Ale9 , ENT #Ale10 )
+{
+#Ale2 = Suma ( #Ale9 , #Ale10 ) ;
+return #Ale2 ;
+}
+
+#Ale3 = calcula ( #Ale4 , #Ale5 ) ;

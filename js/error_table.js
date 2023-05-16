@@ -70,7 +70,7 @@ function FindWord(word) {
         if(valor3 === "FLOT" && valor11[0].type === "ENT"){
                   
         }else{ 
-          error += `<tr><td>ErrSem${++counterVal}</td><td>${var1}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor3}"</td></tr>`;
+          error += `<tr><td>ErrSem${++counterVal}</td><td>${var1}</td><td>${lineCounter}</td><td>Incompatibilidad de\n tipos "${valor3}"</td></tr>`;
           }
       }
     }

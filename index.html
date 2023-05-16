@@ -12,23 +12,26 @@
 </head>
 <body>
   <form action="" name ="form">
+    
     <button id="boton" class="button">Compilar</button>
     <input type="file" id="inputFile">
     <button id="loadButton">Cargar archivo</button>
     <button id="clean">Limpiar</button>
     <button id="save">Salvar informacion</button>
+    <button id="Optimization">Optimizar</button>
     <button id="btnExportar" class="btn btn-success">
         <i class="fas fa-file-excel"></i> Exportar datos a Excel
     </button>
-
 </form>
-
+<h4 id="lbl11">Codigo Optimizado</h4>
 <div class="entrada">
     <form action="" name ="tablas">
-    <h4 id="lbl0">Código a compilar</h4>
+    <h4 id="lbl0">Código a optimizar</h4>
     <div style="position: relative;"></div>
     <div id="numeros-linea"></div>
-    <textarea id="textarea" cols="37" rows="36"></textarea>
+    <textarea id="textarea" cols="37" rows="26"></textarea>
+    <textarea id="textoptimized" cols="37" rows="26"></textarea>
+
 </div>
 
     <h4 class="lbl1">Tabla de simbolos</h4>
@@ -65,9 +68,9 @@
 
 </body>
 <script type= "module" src="/js/Index.js"></script>
+<script type="module" src="/js/optimization.js"></script>
 <script type= "module" src="/js/Triplo.js"></script>
 <script type="module" src="/js/genExcel.js"></script>
 <script type="text/javascript" src="/js/table2excel.js"></script>
 <script type="module" src="/js/error_table.js"></script>
-
 </html>
