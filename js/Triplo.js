@@ -1,4 +1,4 @@
-import { regex_endFunction,regex_StartFunction,regex_detectFunction,cleanSpaces,regex_OPAn, LineNumber, compilador, inputFile, loadButton, regex_CAD, regex_ENT, regex_FLOT, regex_TYPE, regex_aritmetics, regex_asignation, regex_asignation2, regex_boolean, regex_callfunction, regex_constfunction, regex_function, regex_function1, regex_return, regex_separator, regular_expresion, rows, table, textarea, textarea1, variable1, variable2, regex_test } from "./regex.js";
+import { txtopti,regex_endFunction,regex_StartFunction,regex_detectFunction,cleanSpaces,regex_OPAn, LineNumber, compilador, inputFile, loadButton, regex_CAD, regex_ENT, regex_FLOT, regex_TYPE, regex_aritmetics, regex_asignation, regex_asignation2, regex_boolean, regex_callfunction, regex_constfunction, regex_function, regex_function1, regex_return, regex_separator, regular_expresion, rows, table, textarea, textarea1, variable1, variable2, regex_test } from "./regex.js";
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Here we call the botton to compile and print the table of Triplo
@@ -12,7 +12,7 @@ compilador.addEventListener("click", () => {
 
 function getLexema() {
 
-    let lines = textarea.value.split("\n").filter(line => line != " ") 
+    let lines = txtopti.value.split("\n").filter(line => line != " ") 
     let counterVal = 1;
     let triploTable = []
     
@@ -202,7 +202,7 @@ function getLexema() {
 //the information necessary to complete the triplo
 function getJMPfunction (){
 
-    let lines = textarea.value.split("\n").filter(line => line != " ")
+    let lines = txtopti.value.split("\n").filter(line => line != " ")
     let num = []
     let counterVal = 1;
     let triploTable = []
@@ -373,7 +373,7 @@ function getJMPfunction (){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Here we get the parameters of the function when is declarated
 function getParameters(){
-    let lines = textarea.value.split("\n").filter(line => line != " ")
+    let lines = txtopti.value.split("\n").filter(line => line != " ")
     let parameters = []
     for (let line of lines) {
  if(line.match(regex_detectFunction)){
@@ -402,7 +402,7 @@ return parameters;
 ////////////////////////////////////////////////////////////////////////////////////////////
 //Here we get the parameters when the function is called
 function getParametersCall(){
-    let lines = textarea.value.split("\n").filter(line => line != " ")
+    let lines = txtopti.value.split("\n").filter(line => line != " ")
     let parameters = []
         for (let line of lines) {
   

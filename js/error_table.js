@@ -1,4 +1,4 @@
-import { regex_test,LineNumber,compilador,inputFile,loadButton,regex_CAD,regex_ENT,regex_FLOT,regex_TYPE,regex_aritmetics,regex_asignation,regex_asignation2,regex_boolean,regex_callfunction,regex_constfunction,regex_function,regex_function1,regex_return,regex_separator,regular_expresion,rows,table,textarea,textarea1,variable1,variable2 } from "./regex.js";
+import { txtopti,regex_test,LineNumber,compilador,inputFile,loadButton,regex_CAD,regex_ENT,regex_FLOT,regex_TYPE,regex_aritmetics,regex_asignation,regex_asignation2,regex_boolean,regex_callfunction,regex_constfunction,regex_function,regex_function1,regex_return,regex_separator,regular_expresion,rows,table,textarea,textarea1,variable1,variable2 } from "./regex.js";
 
 let arrayGlobal = [];
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -33,7 +33,7 @@ function FindWord(word) {
   
   function Compare(valor11){
     var counterVal = 0;
-    let lines = textarea.value.trim().split("\n").filter(line=>line!=" ")
+    let lines = txtopti.value.trim().split("\n").filter(line=>line!=" ")
    
     const ErrorTable = document.getElementById("error");
     ErrorTable.innerHTML = `
@@ -135,23 +135,7 @@ if (match) {
           error += `<tr><td>ErrSem${++counterVal}</td><td>${words[i]}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor2}"</td></tr>`;
         }
       }
-    }
-
-
-
-
-  //  if (valor) {
-  //   if(valor2 && valor !== valor2){
-  //     if(valor2 === "FLOT" && valor === "ENT"){
-            
-  //     }else{ 
-  //         error += `<tr><td>ErrSem${++counterVal}</td><td>${words[i]}</td><td>${lineCounter}</td><td>Incompatibilidad de tipos "${valor2}"</td></tr>`;
-  //     }
-  //   }
-  // }else{
-  //               error += `<tr><td>ErrSem${++counterVal}</td><td>${words[i]}</td><td>${lineCounter}</td><td>Variable indefinida</td></tr>`;
-  // }
-  
+    }  
      }
   }
 }else{
@@ -191,7 +175,7 @@ if(valor1){
   }
   //Function to get information for the error table
   function  getInfoFunction (){
-    let lines = textarea.value.split("\n").filter(line => line != " ")
+    let lines = txtopti.value.split("\n").filter(line => line != " ")
     let parameters=[];
 
   for (let line of lines) {

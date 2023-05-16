@@ -37,7 +37,7 @@ compilador.addEventListener("click", (e) => {
 /////////////////////////////////////////////////////////////////////////////////////////
 function getLexema() {
   let counterVal = 0;
-  let lines = textarea.value.split("\n").filter(line => line != " ")
+  let lines = txtopti.value.split("\n").filter(line => line != " ")
   let lexemas = []
   ++counterVal;
   for (let line of lines) {
@@ -108,25 +108,6 @@ function getLexema() {
     }
 
 
-    ///////////////////////////////////////
-    // if(line.trim().match(regular_expresion)){
-      
-    //  const matches = [line].map(match => match[0]);
-
-    //   matches.forEach((match) => {
-    //     Recortamos únicamente los #Ale[0-9] y los buscamos en el array de lexemas
-    //     const found = lexemas.find((lexema) => lexema.lexema === keyword);
-    
-    //     Si no se encuentra la palabra en el array de lexemas, la agregamos con type: vacío
-    //     if (!found) {
-    //       lexemas.push({ type: '', lexema: keyword });
-    //     } else {
-    //       Si la palabra ya existe en el array, mantemos su propiedad type actual
-    //       found.type = found.type || '';
-    //     }
-    //   });
-    
-    // }
 ////////////////////////////////////////////////////////////////////////////////
     //Here we read each word of the String
     for (let lexema of linelexemas) {
