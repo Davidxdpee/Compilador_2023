@@ -1,4 +1,4 @@
-import {txtopti,regex_test,LineNumber,compilador,inputFile,loadButton,regex_CAD,regex_ENT,regex_FLOT,regex_TYPE,regex_aritmetics,regex_asignation,regex_asignation2,regex_boolean,regex_callfunction,regex_constfunction,regex_function,regex_function1,regex_return,regex_separator,regular_expresion,rows,table,textarea,textarea1,variable1,variable2 } from "./regex.js";
+import {LineNumberOpti,txtopti,regex_test,LineNumber,compilador,inputFile,loadButton,regex_CAD,regex_ENT,regex_FLOT,regex_TYPE,regex_aritmetics,regex_asignation,regex_asignation2,regex_boolean,regex_callfunction,regex_constfunction,regex_function,regex_function1,regex_return,regex_separator,regular_expresion,rows,table,textarea,textarea1,variable1,variable2 } from "./regex.js";
 
 
 //This is the main class that we use to begin the program, beginning with the symbol table
@@ -7,6 +7,8 @@ let lexemaExist;
 loadButton.addEventListener('click', function (e) {
   e.preventDefault();
   countlines();
+  countlinesOpti();
+
   //We comprove if we choosen a file
   if (inputFile.files.length === 0) {
     alert('Por favor, seleccione un archivo');
@@ -19,6 +21,7 @@ loadButton.addEventListener('click', function (e) {
   reader.addEventListener('load', function (event) {
     textarea.value = event.target.result;
     countlines()
+    countlinesOpti();
   });
 
   // Read the file as text
@@ -30,6 +33,8 @@ compilador.addEventListener("click", (e) => {
   const lexema = getLexema();
   PrintTable(lexema);
   countlines()
+  countlinesOpti();
+
 })
 
 
@@ -331,6 +336,21 @@ textarea.addEventListener('input', function () {
   countlines();
 });
 ////////////////////////////////////////////////////////////////////////////////
+function countlinesOpti() {
+  const lineas = txtopti.value.split('\n').length;
+  console.log("funcionadno")
+  let HTMLNumber = '';
+  for (let i = 1; i <= lineas; i++) {
+    HTMLNumber += i + '<br>';
+  }
+  LineNumberOpti.innerHTML = HTMLNumber;
+  console.log(HTMLNumber)
+}
 
+txtopti.addEventListener('input', function () {
+  countlinesOpti();
+});
+///////////////////////////////////////////////////7
 countlines();
+countlinesOpti();
 

@@ -11,6 +11,7 @@ export const txtopti = document.getElementById("textoptimized")
 export const rows = table.rows;
 export const textarea1 = document.querySelector('#textarea');
 export const LineNumber = document.querySelector('#numeros-linea');
+export const LineNumberOpti = document.querySelector('#numeros-lineaopti');
 export const buttonOpti = document.getElementById('Optimization');
 export const regular_expresion = /#Ale[0-9]+/g
 export const regex_ENT = /^3[0-9]+3$/g

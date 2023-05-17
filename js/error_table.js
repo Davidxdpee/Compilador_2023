@@ -88,8 +88,8 @@ function FindWord(word) {
    let error = "";
       const valor13 = FindWord(linelexemas[1]);
       const cell = FindWord(linelexemas[1]);
-      console.log(cell)
-      console.log(cell.textContent)
+     // console.log(cell)
+    //  console.log(cell.textContent)
       if(!cell || typeof cell.textContent === "undefined" || cell.textContent === "") {
         console.log("La variable "+linelexemas[1]+" se encontró pero no tiene dato")
 }

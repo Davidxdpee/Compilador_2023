@@ -115,19 +115,29 @@ th {
 
 #numeros-linea {
     position: absolute;
-    top: 8.4%;
-    left: 48.5%;
+    top: 8.5%;
+    left: 48%;
     width: 200px;
     height: 200px;
     padding: 10px;
-    top: 80px;
     font-family: monospace;
     color: black;
     font-size: 15px;
-
-   
   }
   
+  #numeros-lineaopti {
+    position: absolute;
+    top: 67.5%;
+    left: 48%;
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+    
+    font-family: monospace;
+    color: black;
+    font-size: 15px;
+  }
+
   #textarea {
     position: absolute;
     top: 8.4%;
