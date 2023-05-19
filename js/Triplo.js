@@ -40,12 +40,12 @@ function getLexema() {
         }  
         //Here we analyze the OPA A = B OPA C ;      A = B + C
         if (line.trim().match(regex_OPAn)) {
-            console.log("Lo que entro fue "+line)
+            ////console.log("Lo que entro fue "+line)
         let tokens = cleanSpaces(line.split(" ")) 
             //We use a foreach to print both registers by each OPA
             for(let i=1; i<tokens.length; i++){
                 if (["=", "-", "/", "+", "*", "%"].includes(tokens[i])) {
-                    console.log(tokens)
+                    ////console.log(tokens)
                 triploTable.push(
                 {
                     line: counterVal++,
@@ -193,7 +193,7 @@ function getLexema() {
         }
     }
     //Print the table to verify if its everything is correct
-    console.log(triploTable)
+    ////console.log(triploTable)
     return triploTable
 }
 
@@ -367,7 +367,7 @@ function getJMPfunction (){
             } 
         }   
     }
-    console.log(num)
+    //console.log(num)
     return num;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -385,7 +385,7 @@ function getParameters(){
    
       for (let i = 0; i < words.length; i++) {
        let result = Array.from(words[i].matchAll(/\s*#\w+\s*/g)).map(match => match[0]);   
-       console.log(result)
+       //console.log(result)
          parameters.push({
         
           variableStart: result.join(' '),

@@ -54,7 +54,7 @@ function getLexema() {
       let name = parts[1];
       let variable1 = parts[4];
       let variable =parts[8];
-      console.log("Este es el texto en partes "+parts)
+      //console.log("Este es el texto en partes "+parts)
       //We are looking for a string of CAD #Alenumber
       var cadRegex = /CAD #(\w+)/g;
       var cadMatches = line.matchAll(cadRegex);
@@ -338,13 +338,13 @@ textarea.addEventListener('input', function () {
 ////////////////////////////////////////////////////////////////////////////////
 function countlinesOpti() {
   const lineas = txtopti.value.split('\n').length;
-  console.log("funcionadno")
+  //console.log("funcionadno")
   let HTMLNumber = '';
   for (let i = 1; i <= lineas; i++) {
     HTMLNumber += i + '<br>';
   }
   LineNumberOpti.innerHTML = HTMLNumber;
-  console.log(HTMLNumber)
+  //console.log(HTMLNumber)
 }
 
 txtopti.addEventListener('input', function () {

@@ -88,10 +88,10 @@ function FindWord(word) {
    let error = "";
       const valor13 = FindWord(linelexemas[1]);
       const cell = FindWord(linelexemas[1]);
-     // console.log(cell)
-    //  console.log(cell.textContent)
+     // //console.log(cell)
+    //  //console.log(cell.textContent)
       if(!cell || typeof cell.textContent === "undefined" || cell.textContent === "") {
-        console.log("La variable "+linelexemas[1]+" se encontró pero no tiene dato")
+        //console.log("La variable "+linelexemas[1]+" se encontró pero no tiene dato")
 }
 
 if(valor11[0].type){
@@ -124,7 +124,7 @@ if (match) {
     
     const valor = FindWord(words[i]);
     const valor2 = FindWord(valor11[i].variable)
-    console.log(valor)
+    //console.log(valor)
 
     if(valor2){
       if(typeof valor === "undefined" || valor === null || (typeof valor === "string" && valor.trim() === "")){
@@ -139,7 +139,7 @@ if (match) {
      }
   }
 }else{
-  console.log("No hay parámetros")
+  //console.log("No hay parámetros")
 }
 ErrorTable.innerHTML += error;
 }
@@ -208,7 +208,7 @@ if(valor1){
    
       for (let i = 0; i < words.length; i++) {
        let result = Array.from(words[i].matchAll(/\s*#\w+\s*/g)).map(match => match[0]);   
-       console.log(result)
+       //console.log(result)
          parameters.push({
           type : parts[0],
           name : parts[1],

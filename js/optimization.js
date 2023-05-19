@@ -4,6 +4,7 @@ import { txtopti, regex_endFunction, regex_StartFunction, regex_detectFunction, 
 buttonOpti.addEventListener("click", (e) => {
   e.preventDefault()
   Optimization()
+  
 });
 
 function getNumbLinesFunction() {
@@ -62,8 +63,8 @@ function firstfunctionmoretwo() {
     while ((MatchCall = regex_call.exec(content)) !== null) {
       const NameCall = MatchCall[1];
       const CallParameters = MatchCall[2].split(',').map(p => p.trim()).filter(p => p !== '');
-      console.log(CallParameters)
-      console.log(parameters)
+      //console.log(CallParameters)
+      //console.log(parameters)
       ///////////////////////////////////////////////////////////////////////
       //Finf if the call use some parameter that match with the name of some variable of this function
       let ContainParameterCall = true;
@@ -92,19 +93,19 @@ function firstfunctionmoretwo() {
           if (line.trim().match(regex_OPAn)) {
             //Here we check if the line that is and operation A = A + B ; Includes the parameters of the function
             if (otherfunctionparameter.every(variable => line.includes(variable))) {
-              console.log(`La entrada "${line}" contiene ambas variables`);
+              //console.log(`La entrada "${line}" contiene ambas variables`);
               const operadores = line.match(regexOperadores);
               let parts = line.split(' ')
               operador = operadores[0];
               firstpart = parts[0]
             } else {
-              console.log("No encontró nada")
+              //console.log("No encontró nada")
             }
           }
         }
       }
       ////////////////////////////////////////////////////////
-      console.log(`La función "${name}" llama a la función "${NameCall}"`);
+      //console.log(`La función "${name}" llama a la función "${NameCall}"`);
       functionsToDelete.push(NameCall); // Add the function to delete in the optimization
       for (let i = 0; i < CallContent.length; i++) {
         //We match if the line is and aritmetic operation
@@ -122,7 +123,7 @@ function firstfunctionmoretwo() {
       optimizedCode = optimizedCode.replace(content, newFunctionContent);
     }
   }
-  console.log(functionsToDelete)
+  //console.log(functionsToDelete)
   // Delete the functions unless 
   for (let functionName of functionsToDelete) {
     optimizedCode = optimizedCode.replace(new RegExp(`(\\b(ENT|CAD|FLOT)\\s+${functionName}\\s*\\(\\s*([^)]*?)\\s*\\)\\s*{[\\s\\S]*?})`), '');
@@ -170,8 +171,8 @@ function secondfunctioneqormoretwo() {
       const matchDefFunction = regexDefFunction.exec(codigo);
       if (matchDefFunction !== null) {
         const FunctioncontentCall = matchDefFunction[3].trim();
-        console.log(`Contenido de la función "${NameCall}":`);
-        console.log(FunctioncontentCall);
+        //console.log(`Contenido de la función "${NameCall}":`);
+        //console.log(FunctioncontentCall);
         const regex_OPAn = /^#Ale[0-9]*\s\=\s*(?:#Ale\d+|\d+(?:\.\d+)?|\(\s*[?:#Ale\d+|\d+(?:\.\d+)?\-*\/\%\s]+\s*\))(\s*[+\-*\%\/]\s*(?:#Ale\d+|\d+(?:\.\d+)?|\(\s*[?:#Ale\d+|\d+(?:\.\d+)?\-*\/\%\s]+\s*\))){1,}\s\;$/;
         const regexOperadores = /[\+\-\*\/\%]/g;
         let lines = FunctioncontentCall.split("\n").filter(line => line != " ")
@@ -184,7 +185,7 @@ function secondfunctioneqormoretwo() {
 
       }
       ////////////////////////////////////////////////////////
-      console.log(`La función "${name}" llama a la función "${NameCall}"`);
+      //console.log(`La función "${name}" llama a la función "${NameCall}"`);
       functionsToDelete.push(NameCall); // Add the function to delete
       for (let i = 0; i < Functioncontent.length; i++) {
         if (regex_test.test(Functioncontent[i])) {
@@ -198,7 +199,7 @@ function secondfunctioneqormoretwo() {
 
     }
   }
-  console.log(functionsToDelete)
+  //console.log(functionsToDelete)
   // Delete the functions when we optimize
   for (let functionName of functionsToDelete) {
     optimizedCode = optimizedCode.replace(new RegExp(`(\\b(ENT|CAD|FLOT)\\s+${functionName}\\s*\\(\\s*([^)]*?)\\s*\\)\\s*{[\\s\\S]*?})`), '');

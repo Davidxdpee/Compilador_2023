@@ -9,6 +9,7 @@ export const loadButton = document.getElementById('loadButton');
 export const table = document.getElementById('table1');
 export const txtopti = document.getElementById("textoptimized")
 export const rows = table.rows;
+export const txtassembler = document.querySelector('#assembler');
 export const textarea1 = document.querySelector('#textarea');
 export const LineNumber = document.querySelector('#numeros-linea');
 export const LineNumberOpti = document.querySelector('#numeros-lineaopti');
