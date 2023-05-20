@@ -1,0 +1,53 @@
+ENT #Ale1 , #Ale2 , #Ale3 ;
+ENT #Ale4 , #Ale5 ;
+#Ale4 = 303 ;
+#Ale5 = 353 ;
+
+ENT Suma ( ENT #Ale6 , ENT #Ale7 ) 
+{
+#Ale1 = #Ale6 + #Ale7 ;
+return #Ale1 ;
+}
+
+ENT calcula ( ENT #Ale8 , ENT #Ale9 ) 
+{
+#Ale9 = 303 * 3773 ;
+#Ale8 = 303 - 303 ;
+#Ale1 = 34643 / 3064053 ;
+#Ale2 = 36545463 % 3607506403 ;
+#Ale2 = Suma ( #Ale8 , #Ale9 ) ;
+return #Ale2 ;
+}
+
+#Ale3 = calcula ( #Ale4 , #Ale5 ) ;
+
+#Ale2 = 36545463 % 3607506403 ;
+#Ale1 = 34643 / 3064053 ;
+///////////////////////
+
+ENT #Ale1 , #Ale2 , #Ale3 ;
+ENT #Ale4 , #Ale5 ;
+#Ale4 = 303 ;
+#Ale5 = 353 ;
+
+ENT Suma ( ENT #Ale6 , ENT #Ale7 ) 
+{
+#Ale1 = #Ale6 + #Ale7 ;
+return #Ale1 ;
+}
+
+ENT calcula ( ENT #Ale8 , ENT #Ale9 ) 
+{
+#Ale9 = 303 * 3773 ;
+#Ale8 = 303 - 303 ;
+#Ale1 = 34643 / 3064053 ;
+#Ale2 = 36545463 % 3607506403 ;
+#Ale2 = Suma ( #Ale8 , #Ale9 ) ;
+return #Ale2 ;
+}
+#Ale2 = 36545463 % 3607506403 ;
+#Ale1 = 34643 / 3064053 ;
+#Ale3 = calcula ( #Ale4 , #Ale5 ) ;
+#Ale2 = 36545463 % 3607506403 ;
+#Ale1 = 34643 / 3064053 ;
+
