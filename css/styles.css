@@ -49,6 +49,14 @@ body {
   top: 60%;
 }
 
+#lbl12{
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 31%;
+  top: 60%;
+}
+
 .table {
   
 	width: 240px;
